@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/Ryzen/Desktop/Projects4/C/my-goals'
+make: Leaving directory '/mnt/c/Users/Ryzen/Desktop/Projects4/C/my-goals'
+ 
+make: *** No rule to make target 'file.c', needed by 'file'.
+
