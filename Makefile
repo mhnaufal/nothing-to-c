@@ -1,14 +1,14 @@
-hello:
-	echo "Hello from Makefile"
-
 CC = gcc
-MOVE_TO_DB = cd database
+MOVE_TO_DB = cd not-redis
 
 db: db_build
-	${MOVE_TO_DB} && ./sql.o
+	${MOVE_TO_DB} && ./command.out $(filter-out $@,$(MAKECMDGOALS))
 
 db_build:
-	${MOVE_TO_DB} && ${CC} sql.c -o sql.o
+	${MOVE_TO_DB} && ${CC} command.c -o command.out
+
+%:
+	@:
 
 clean:
-	rm *.exe *.out
+	rm -rf *.exe *.out
