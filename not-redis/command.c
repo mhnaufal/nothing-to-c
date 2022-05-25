@@ -4,6 +4,7 @@
 #include <string.h>
 #include <errno.h>
 
+/* DATAS */
 enum database_commands
 {
     GET,
@@ -11,12 +12,17 @@ enum database_commands
     KEYS
 };
 
+/**
+ * 'static' here means that this const
+ * only available within this unit/file
+ */
 static const char *const commands[] = {
     [GET] = "get",
     [SET] = "set",
     [KEYS] = "keys",
 };
 
+/* METHODS */
 void show_instruction()
 {
     printf(
@@ -26,15 +32,48 @@ void show_instruction()
         "📌 keys   : take a pattern of key and return the value base on the pattern\n");
 }
 
-void show_keys(char *pattern)
+FILE *open_database_file(char *file_path, char *mode)
 {
-    FILE *db_file = fopen("db.txt", "r");
+    FILE *opened_file = fopen(file_path, mode);
 
-    if (db_file == NULL)
+    if (opened_file == NULL)
     {
-        fprintf(stderr, "ERROR: could not open file\n");
+        fprintf(stderr, "ERROR: could not open file \"%s\": %m\n", file_path);
         exit(1);
     }
+
+    return opened_file;
+}
+
+void show_get(char *key)
+{
+    if (!key)
+    {
+        fprintf(stderr, "ERROR: no key given\n");
+        exit(1);
+    }
+
+    FILE *db_file = open_database_file("db.txt", "r");
+
+    char datas[255];
+
+    // make it read per string, instead of per newline
+    while (fgets(datas, sizeof(datas), db_file) != NULL)
+    {
+        printf("[%s] %s", key, datas);
+        if (!strcmp(key, datas))
+        {
+            printf("[%s] %s", key, datas);
+        }
+    }
+
+    puts("");
+    fclose(db_file);
+}
+
+void show_keys(char *pattern)
+{
+    FILE *db_file = open_database_file("db.txt", "r");
 
     // compare the pattern
 
@@ -49,9 +88,12 @@ void show_keys(char *pattern)
     fclose(db_file);
 }
 
+/* MAIN */
 int main(int argc, char *argv[])
 {
     char *command = argv[1];
+    char *key_param = argv[2];
+    char *value_param = argv[3];
 
     if (!command)
     {
@@ -59,7 +101,7 @@ int main(int argc, char *argv[])
     }
     else if (!strcmp(command, commands[GET]))
     {
-        printf("reading...\n");
+        show_get(key_param);
     }
     else if (!strcmp(command, commands[SET]))
     {

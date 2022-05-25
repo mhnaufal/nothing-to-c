@@ -2,15 +2,16 @@
 
 Again, is not a Redis, its just me trying to make a **redis-cli**
 
-### List of Commands
+## List of Commands
 
 `db [command] [params]`
 
-#### get
+### get
 
-#### set
+### set
 
-#### keys
+### keys
 
-#### help
+### help
+
 Show the help
