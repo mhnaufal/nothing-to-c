@@ -25,6 +25,7 @@ static const char *const commands[] = {
 void show_instruction();
 void show_get(char *key);
 void show_keys(char *pattern);
+void set_key(char *key, char *value);
 FILE *open_database_file(char *file_path, char *mode);
 
 #endif

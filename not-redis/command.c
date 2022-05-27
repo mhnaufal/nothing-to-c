@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <stdbool.h>
 
 #include "command.h"
 
@@ -82,16 +83,28 @@ void show_get(char *key)
     }
 
     FILE *db_file = open_database_file("db.txt", "r");
-
     char datas[BUFF_SIZE];
+    bool found = false;
 
-    while (fgets(datas, sizeof(datas), db_file) != NULL)
+    while (fscanf(db_file, "%s", datas) == 1)
     {
-        printf("[%s] %s", key, datas);
         if (!strcmp(key, datas))
         {
-            printf("[%s] %s", key, datas);
+            found = true;
+            continue;
         }
+
+        if (found)
+            break;
+    }
+
+    if (!found)
+    {
+        printf("[⛔] Key '%s' doesn't exist\n", key);
+    }
+    else
+    {
+        printf("%s [%s]", key, datas);
     }
 
     puts("");
@@ -101,7 +114,6 @@ void show_get(char *key)
 void show_keys(char *pattern)
 {
     FILE *db_file = open_database_file("db.txt", "r");
-
     char datas[BUFF_SIZE];
 
     if (!strcmp(pattern, "all") || pattern == "")
@@ -118,4 +130,10 @@ void show_keys(char *pattern)
 
     puts("");
     fclose(db_file);
+}
+
+void set_key(char *key, char *value)
+{
+    // check if key already exist
+    // if not, open file as append
 }
