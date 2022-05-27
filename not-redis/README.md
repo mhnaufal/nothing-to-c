@@ -32,7 +32,7 @@ Return key-value pair(s) based on the pattern options given. If no pattern given
 Get all data in the database
 
 ```bash
-make db keys all
+$ make db keys all
 ```
 
 ### help
@@ -42,15 +42,15 @@ Show the help.
 ## Run
 
 ```bash
-make db [command] [params]
+$ make db [command] [params]
 ```
 
 **Example:**
 
 ```bash
-make db get name
+$ make db get name
 ```
 
 ```bash
-make db set age 23
+$ make db set age 23
 ```
