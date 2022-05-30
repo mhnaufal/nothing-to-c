@@ -23,6 +23,7 @@ static const char *const commands[] = {
 
 /* METHODS */
 void show_instruction();
+void show_help();
 void show_get(char *key);
 void show_keys(char *pattern);
 void set_key(char *key, char *value);
