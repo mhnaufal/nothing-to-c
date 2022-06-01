@@ -8,7 +8,7 @@
 #include "command.h"
 
 /* MAIN */
-int main(int argc, char *argv[])
+int main(__attribute__((unused)) int argc, char *argv[])
 {
     char *command = argv[1];
     char *key_param = argv[2];
@@ -42,6 +42,10 @@ int main(int argc, char *argv[])
 
         show_keys(pattern);
     }
+    else if (!strcmp(command, commands[HELP]))
+    {
+        show_help();
+    }
     else
     {
         printf("[❌] Can't continue the process. Undefined command '%s'\n", command);
@@ -58,7 +62,8 @@ void show_instruction()
         "db [command] [params]\n\n"
         "📌 get    : take a key as the parameter and return the value if the given key is exists\n"
         "📌 set    : take a key and a value as the paramters and save it to the file db\n"
-        "📌 keys   : take a pattern of key and return the value base on the pattern\n");
+        "📌 keys   : take a pattern of key and return the value base on the pattern\n"
+        "📌 help   : show the helps\n");
 }
 
 void show_help()
@@ -67,7 +72,10 @@ void show_help()
         "db [command] [params]\n\n"
         "📌 get    : take a key as the parameter and return the value if the given key is exists\n"
         "📌 set    : take a key and a value as the paramters and save it to the file db\n"
-        "📌 keys   : take a pattern of key and return the value base on the pattern\n");
+        "📌 keys   : take a pattern of key and return the value base on the pattern\n"
+        "📌 help   : show the helps\n"
+        "every process will ended with '-OK-' text to show that the process has been ended\n"
+        "\nNOTE: this is not 'Redis' it's just me try to implement a Redis :(\n");
 }
 
 FILE *open_database_file(char *file_path, char *mode)

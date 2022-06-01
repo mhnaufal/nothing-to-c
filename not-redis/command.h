@@ -8,7 +8,8 @@ enum database_commands
 {
     GET,
     SET,
-    KEYS
+    KEYS,
+    HELP
 };
 
 /**
@@ -19,6 +20,7 @@ static const char *const commands[] = {
     [GET] = "get",
     [SET] = "set",
     [KEYS] = "keys",
+    [HELP] = "help",
 };
 
 /* METHODS */
