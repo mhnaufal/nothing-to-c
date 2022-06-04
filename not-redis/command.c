@@ -53,7 +53,7 @@ int main(__attribute__((unused)) int argc, char *argv[])
 
     puts("-OK-\n");
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void show_instruction()
@@ -85,6 +85,7 @@ FILE *open_database_file(char *file_path, char *mode)
     if (opened_file == NULL)
     {
         fprintf(stderr, "[❌] Can't open file '%s'\n", file_path);
+        EXIT_FAILURE;
         exit(1);
     }
 
@@ -96,6 +97,7 @@ void show_get(char *key)
     if (!key)
     {
         fprintf(stderr, "[❌] Can't process 'get' command. No key provided\n");
+        EXIT_FAILURE;
         exit(1);
     }
 
@@ -154,11 +156,13 @@ void set_key(char *key, char *value)
     if (!key)
     {
         fprintf(stderr, "[❌] Can't process 'set' command. No key provided\n");
+        EXIT_FAILURE;
         exit(1);
     }
     else if (!value)
     {
         fprintf(stderr, "[❌] Can't process 'set' command. No value provided\n");
+        EXIT_FAILURE;
         exit(1);
     }
 
@@ -178,6 +182,7 @@ void set_key(char *key, char *value)
     if (found)
     {
         printf("[⛔] Data with the key '%s' already existx exist\n", key);
+        EXIT_FAILURE;
         exit(1);
     }
     else
