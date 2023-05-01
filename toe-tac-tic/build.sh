@@ -1,1 +1,1 @@
-gcc -Wall -pedantic -Wextra main.c -o build/main.o && ./build/main.o
+rm -rf ./build/*.o && gcc -Wall -pedantic -Wextra tic.c -o build/tic.o && ./build/tic.o
