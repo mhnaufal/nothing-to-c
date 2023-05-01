@@ -2,6 +2,7 @@ CC = gcc
 MOVE_TO_DB = cd not-redis
 MOVE_TO_KOMPILE = cd compiler
 MOVE_TO_SHELL = cd shell
+MOVE_TO_TIC = cd toe-tac-tic
 
 db: db_build
 	${MOVE_TO_DB} && ./command.out $(filter-out $@,$(MAKECMDGOALS))
@@ -24,5 +25,11 @@ shell: shell_build
 shell_build:
 	${MOVE_TO_SHELL} && ${CC} shell.c -o shell.out -Wall -Wextra -pedantic
 
+tic: tic_build
+	${MOVE_TO_TIC} && ./tic.out $(filter-out $@,$(MAKECMDGOALS))
+
+tic_build:
+	${MOVE_TO_TIC} && ${CC} tic.c -o tic.out -Wall -Wextra -pedantic
+
 clean:
-	rm -rf *.exe *.out
+	rm -rf *.exe *.out *.o
