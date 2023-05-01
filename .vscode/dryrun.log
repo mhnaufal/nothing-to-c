@@ -1,6 +1,6 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/mnt/c/Users/Ryzen/Desktop/Projects4/C/my-goals'
-make: Leaving directory '/mnt/c/Users/Ryzen/Desktop/Projects4/C/my-goals'
+make --dry-run --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/Ryzen/Desktop/Projects4/C/nothing-to-c'
+cd not-redis && gcc command.c -o command.out -Wall -Wextra -pedantic
+cd not-redis && ./command.out 
+make: Leaving directory '/mnt/c/Users/Ryzen/Desktop/Projects4/C/nothing-to-c'
  
-make: *** No rule to make target 'file.c', needed by 'file'.
-

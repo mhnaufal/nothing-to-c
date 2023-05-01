@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,8 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon May 23 06:54:31 2022
+ 
+# Make data base, printed on Mon May 30 07:00:06 2022
 
 # Variables
 
@@ -17,7 +16,7 @@ make: *** No rule to make target 'all'.  Stop.
 # automatic
 ?F = $(notdir $?)
 # environment
-WSLENV = ELECTRON_RUN_AS_NODE/w:
+WSLENV = VSCODE_WSL_EXT_LOCATION/up
 # default
 .SHELLFLAGS := -c
 # environment
@@ -31,13 +30,13 @@ rvm_path = /usr/share/rvm
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /mnt/c/Users/Ryzen/Desktop/Projects4/C/my-goals
+CURDIR := /mnt/c/Users/Ryzen/Desktop/Projects4/C/nothing-to-c
 # makefile
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /mnt/d/Program Files/Microsoft VS Code Insiders/bin/code-insiders
+_ = /home/fr13nds/.vscode-server-insiders/bin/528ee1ae3daabe30c1307cf9dcd6e77eb96094bc/node
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -53,11 +52,11 @@ VSCODE_CWD = /mnt/d/Program Files/Microsoft VS Code Insiders
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/fr13nds/.vscode-server-insiders/bin/17c75e11805103026b943c8dc4d50a35f245f76f/bin/remote-cli:/home/fr13nds/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/WindowsApps/CanonicalGroupLimited.UbuntuonWindows_2004.2021.825.0_x64__79rhkp1fndgsc:/mnt/c/Python310/Scripts/:/mnt/c/Python310/:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/d/Program Files/Git/cmd:/mnt/d/Program Files/Vim/vim82:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/Program Files/XAMPP/php:/mnt/c/ProgramData/ComposerSetup/bin:/mnt/d/Program Files/erl10.7/bin:/mnt/d/Program Files/Elixir/bin:/mnt/c/Users/Ryzen/.mix/escripts:/mnt/d/t/php:/mnt/c/Program Files/OpenJDK/jdk-17/bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/PostgreSQL/13/bin:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/Ryzen/scoop/shims:/mnt/c/Ruby31-x64/bin:/mnt/c/Users/Ryzen/AppData/Local/Programs/Python/Python38/Scripts/:/mnt/c/Users/Ryzen/AppData/Local/Programs/Python/Python38/:/mnt/c/Users/Ryzen/.cargo/bin:/mnt/c/Users/Ryzen/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Azure Data Studio/bin:/mnt/d/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Users/Ryzen/AppData/Roaming/Composer/vendor/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/Users/Ryzen/AppData/Roaming/npm:/mnt/c/Users/Ryzen/AppData/Local/Programs/oh-my-posh/bin:/mnt/c/Users/Ryzen/AppData/Local/Programs/oh-my-posh/themes:/mnt/c/Users/Ryzen/AppData/Local/JetBrains/GoLand 2021.3.3/bin:/mnt/c/Users/Ryzen/go/bin:/mnt/c/MinGW/bin:/snap/bin:/usr/share/rvm/bin:/home/fr13nds/.fzf/bin
+PATH = /home/fr13nds/.vscode-server-insiders/bin/528ee1ae3daabe30c1307cf9dcd6e77eb96094bc/bin/remote-cli:/home/fr13nds/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python310/Scripts/:/mnt/c/Python310/:/mnt/c/Python39/Scripts/:/mnt/c/Python39/:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/d/Program Files/Git/cmd:/mnt/d/Program Files/Vim/vim82:/mnt/c/ProgramData/chocolatey/bin:/mnt/d/Program Files/XAMPP/php:/mnt/c/ProgramData/ComposerSetup/bin:/mnt/d/Program Files/erl10.7/bin:/mnt/d/Program Files/Elixir/bin:/mnt/c/Users/Ryzen/.mix/escripts:/mnt/d/t/php:/mnt/c/Program Files/OpenJDK/jdk-17/bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files/PostgreSQL/13/bin:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/Ryzen/scoop/shims:/mnt/c/Ruby31-x64/bin:/mnt/c/Users/Ryzen/AppData/Local/Programs/Python/Python38/Scripts/:/mnt/c/Users/Ryzen/AppData/Local/Programs/Python/Python38/:/mnt/c/Users/Ryzen/.cargo/bin:/mnt/c/Users/Ryzen/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Azure Data Studio/bin:/mnt/d/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Users/Ryzen/AppData/Roaming/Composer/vendor/bin:/mnt/c/Program Files/OpenJDK/jdk-17/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/Users/Ryzen/AppData/Roaming/npm:/mnt/c/Program Files/PostgreSQL/13/bin:/mnt/c/Users/Ryzen/AppData/Local/Programs/oh-my-posh/bin:/mnt/c/Users/Ryzen/AppData/Local/Programs/oh-my-posh/themes:/mnt/c/Users/Ryzen/AppData/Local/JetBrains/GoLand 2021.3.3/bin:/mnt/c/Users/Ryzen/go/bin:/mnt/c/MinGW/bin:/snap/bin:/usr/share/rvm/bin:/home/fr13nds/.fzf/bin
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-9dd8c679-6b6a-4c09-b9f8-6de21a61c3c1.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-8e5969a9-3ae4-449f-956f-77a69df7567a.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -69,11 +68,11 @@ VSCODE_PIPE_LOGGING = true
 # environment
 rvm_bin_path = /usr/share/rvm/bin
 # environment
-PWD = /mnt/c/Users/Ryzen/Desktop/Projects4/C/my-goals
+PWD = /mnt/c/Users/Ryzen/Desktop/Projects4/C/nothing-to-c
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/9_interop
+WSL_INTEROP = /run/WSL/12_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -97,21 +96,23 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 1
+SHLVL = 0
+# makefile (from 'Makefile', line 1)
+CC = gcc
 # default
 MAKE_VERSION := 4.2.1
 # environment
 USER = fr13nds
 # makefile
-.DEFAULT_GOAL := file
+.DEFAULT_GOAL := db
 # environment
-NAME = Code - Insiders
+NAME = DESKTOP-9AHSIL3
 # environment
 rvm_version = 1.29.12 (manual)
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
-VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Ryzen/.vscode-insiders/extensions/ms-vscode-remote.remote-wsl-0.66.2
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/Ryzen/.vscode-insiders/extensions/ms-vscode-remote.remote-wsl-0.66.3
 # default
 MAKE_COMMAND := make
 # default
@@ -146,6 +147,8 @@ HOSTTYPE = x86_64
 rvm_prefix = /usr/share
 # default
 SUFFIXES := 
+# makefile (from 'Makefile', line 2)
+MOVE_TO_DB = cd not-redis
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # default
@@ -159,9 +162,11 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # environment
+MOTD_SHOWN = update-motd
+# environment
 NVM_RC_VERSION = 
 # variable set hash-table stats:
-# Load=74/1024=7%, Rehash=0, Collisions=4/99=4%
+# Load=77/1024=8%, Rehash=0, Collisions=4/105=4%
 
 # Pattern-specific Variable Values
 
@@ -169,36 +174,70 @@ NVM_RC_VERSION =
 
 # Directories
 
-# . (device 46, inode 74590868828461631): 8 files, no impossibilities.
+# . (device 46, inode 74590868828461631): 10 files, no impossibilities.
 
-# 8 files, no impossibilities in 1 directories.
+# 10 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-# No implicit rules.
+%:
+#  recipe to execute (from 'Makefile', line 11):
+	@:
+
+# 1 implicit rules, 0 (0.0%) terminal.
 
 # Files
 
-# Not a target:
 all:
 #  Command line target.
 #  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'all'
 #  File does not exist.
-#  File has not been updated.
-
-# Not a target:
-Makefile:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-21 14:43:10.592817
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# % := 
+# automatic
+# * := all
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  recipe to execute (from 'Makefile', line 11):
+	@:
 
-file: file.c
+db_build:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 2):
-	gcc -o file file.c
+#  recipe to execute (from 'Makefile', line 8):
+	${MOVE_TO_DB} && ${CC} command.c -o command.out -Wall -Wextra -pedantic
+
+Makefile:
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'Makefile'
+#  Last modified 2022-05-30 06:54:16.16301
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 11):
+	@:
+
+db: db_build
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 5):
+	${MOVE_TO_DB} && ./command.out $(filter-out $@,$(MAKECMDGOALS))
 
 # Not a target:
 .DEFAULT:
@@ -210,29 +249,23 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 5):
-	rm file.exe
-
-# Not a target:
-file.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 14):
+	rm -rf *.exe *.out
 
 # files hash-table stats:
-# Load=7/1024=1%, Rehash=0, Collisions=0/18=0%
+# Load=7/1024=1%, Rehash=0, Collisions=0/21=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 15 / storage = 112 B / avg = 7 B
-# current buf: size = 8162 B / used = 112 B / count = 15 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 19 / storage = 150 B / avg = 7 B
+# current buf: size = 8162 B / used = 150 B / count = 19 / avg = 7 B
 
-# strcache performance: lookups = 22 / hit rate = 31%
+# strcache performance: lookups = 29 / hit rate = 34%
 # hash-table stats:
-# Load=15/8192=0%, Rehash=0, Collisions=1/22=5%
-# Finished Make data base on Mon May 23 06:54:31 2022
+# Load=19/8192=0%, Rehash=0, Collisions=1/29=3%
+# Finished Make data base on Mon May 30 07:00:06 2022
 
  
