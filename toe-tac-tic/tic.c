@@ -1,5 +1,6 @@
 #include "tic.h"
 #include <assert.h>
+#include <stdio.h>
 
 char BOARD[BOARD_ROWS][BOARD_COLS];
 
@@ -15,17 +16,26 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
   }
 
-  // Print Board
   reset_board();
-  print_board();
+  char winner = ' ';
 
-  // Player Turn & Check for winner
-  player_turn();
-  print_board();
+  do {
+    print_board();
+    player_turn();
+    winner = check_winner(PLAYER);
+    if (winner == PLAYER)
+      break;
 
-  // Enemy Turn & Check for winner
-  enemy_turn();
+    print_board();
+    enemy_turn();
+    winner = check_winner(ENEMY);
+    if (winner == ENEMY)
+      break;
+
+  } while (winner == ' ');
+
   print_board();
+  show_winner(winner);
 
   return EXIT_SUCCESS;
 }
@@ -57,21 +67,19 @@ void player_turn() {
     printf("PLAYER: Enter column number (1-3): ");
     scanf_s("%d", &player_col);
 
-    assert(player_row <= 3 && player_row >= 1);
-    assert(player_col <= 3 && player_col >= 1);
-
     player_row--;
     player_col--;
+
+    assert(player_row <= 2 && player_row >= 0);
+    assert(player_col <= 2 && player_col >= 0);
 
     if (BOARD[player_row][player_col] == ' ') {
       BOARD[player_row][player_col] = PLAYER;
       break;
     } else {
-      printf("Board already filled, try another row and col!\n");
+      printf("\nBoard already filled, try another row and col!\n");
     }
   } while (BOARD[player_row][player_col] != ' ');
-
-  // check winner
 }
 
 void enemy_turn() {
@@ -83,21 +91,67 @@ void enemy_turn() {
 
     printf("ENEMY: Enter col number (1-3): ");
     scanf_s("%d", &enemy_col);
+
     enemy_row--;
     enemy_col--;
 
-    assert(enemy_row <= 3 && enemy_row >= 1);
-    assert(enemy_col <= 3 && enemy_col >= 1);
+    assert(enemy_row <= 2 && enemy_row >= 0);
+    assert(enemy_col <= 2 && enemy_col >= 0);
 
     if (BOARD[enemy_row][enemy_col] == ' ') {
       BOARD[enemy_row][enemy_col] = ENEMY;
       break;
     } else {
-      printf("Board already filled, try another row and col!\n");
+      printf("\nBoard already filled, try another row and col!\n");
     }
   } while (BOARD[enemy_row][enemy_col] != ' ');
-
-  // check winner
 }
 
-void check_winner();
+char check_winner(char winner) {
+  // Checking rows
+  if (BOARD[0][0] == winner && BOARD[0][0] == BOARD[0][1] &&
+      BOARD[0][0] == BOARD[0][2]) {
+    return winner;
+  } else if (BOARD[1][0] == winner && BOARD[1][0] == BOARD[1][1] &&
+             BOARD[1][0] == BOARD[1][2]) {
+    return winner;
+  } else if (BOARD[2][0] == winner && BOARD[2][0] == BOARD[2][1] &&
+             BOARD[2][0] == BOARD[2][2]) {
+    return winner;
+  }
+  // Checking cols
+  else if (BOARD[0][0] == winner && BOARD[0][0] == BOARD[1][0] &&
+           BOARD[0][0] == BOARD[2][0]) {
+    return winner;
+  } else if (BOARD[0][1] == winner && BOARD[0][1] == BOARD[1][1] &&
+             BOARD[0][1] == BOARD[2][1]) {
+    return winner;
+  } else if (BOARD[0][2] == winner && BOARD[0][2] == BOARD[1][2] &&
+             BOARD[0][2] == BOARD[2][2]) {
+    return winner;
+  }
+  // Checking diagonals
+  else if (BOARD[0][0] == winner && BOARD[0][0] == BOARD[1][1] &&
+           BOARD[0][0] == BOARD[2][2]) {
+    return winner;
+  } else if (BOARD[0][2] == winner && BOARD[0][2] == BOARD[1][1] &&
+             BOARD[0][2] == BOARD[2][0]) {
+    return winner;
+  }
+
+  return ' ';
+}
+
+int show_winner(char winner) {
+  if (winner == PLAYER) {
+    printf("+------------------+\n");
+    printf("| $_$ Player wins! |\n");
+    printf("+------------------+\n\n");
+    return EXIT_SUCCESS;
+  } else {
+    printf("+------------------+\n");
+    printf("| *_* Enemy wins! |\n");
+    printf("+------------------+\n\n");
+    return EXIT_SUCCESS;
+  }
+}

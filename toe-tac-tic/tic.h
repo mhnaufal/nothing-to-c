@@ -14,4 +14,5 @@ void reset_board();
 void print_board();
 void player_turn();
 void enemy_turn();
-void check_winner();
+char check_winner(char winner);
+int show_winner(char winner);
