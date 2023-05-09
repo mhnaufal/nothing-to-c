@@ -1,4 +1,4 @@
-# Not Redis
+# Not Redis 📂
 
 Again, is not a Redis, it's just me trying to make a [redis-cli](https://redis.io/docs/getting-started/)
 
@@ -20,7 +20,15 @@ $ make db get name
 
 ### set
 
-_ToDo_
+Set a key-value pair data. If the key already exists return exit failed, otherwise return nothing.
+
+```bash
+$ make db set nama tama
+
+$ make db get nama
+
+> nama ["tama"]
+```
 
 ### keys
 
