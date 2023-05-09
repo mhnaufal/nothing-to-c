@@ -3,6 +3,7 @@ MOVE_TO_DB = cd not-redis
 MOVE_TO_KOMPILE = cd compiler
 MOVE_TO_SHELL = cd shell
 MOVE_TO_TIC = cd toe-tac-tic
+MOVE_TO_HANG = cd hangman
 
 db: db_build
 	${MOVE_TO_DB} && ./command.out $(filter-out $@,$(MAKECMDGOALS))
@@ -30,6 +31,12 @@ tic: tic_build
 
 tic_build:
 	${MOVE_TO_TIC} && ${CC} tic.c -o tic.out -Wall -Wextra -pedantic
+
+hang: hang_build
+	${MOVE_TO_HANG} && ./hang.out $(filter-out $@,$(MAKECMDGOALS))
+
+hang_build:
+	${MOVE_TO_HANG} && ${CC} hang.c -o hang.out -Wall -Wextra -pedantic
 
 clean:
 	rm -rf *.exe *.out *.o
