@@ -10,6 +10,7 @@ const size_t BOARD_ROWS = 3;
 const char PLAYER = 'O';
 const char ENEMY = 'X';
 
+void game_loop(char winner);
 void reset_board();
 void print_board();
 void player_turn();

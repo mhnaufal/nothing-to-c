@@ -5,8 +5,18 @@
 char BOARD[BOARD_ROWS][BOARD_COLS];
 
 int main(int argc, char *argv[]) {
+  printf("\n\n");
+  printf("      ,-'``_.-'` \\   / `'-._``'-. \n");
+  printf("    ,`   .'      |`-'|      `.   `. \n");
+  printf("  ,`    (    /\\  |   |  /\\    )    `. \n");
+  printf(" /       `--'  `-'   `-'  `--'       \\ \n");
+  printf(" |                                   | \n");
+  printf(" \\      .--.  ,--.   ,--.  ,--.     / \n");
+  printf("  `.   (       \\/\\ / /\\/     )   ,' \n");
+  printf("   `._ `--.___    V    ___.--' _,' \n");
+  printf("      `'----'`         `'----'` \n");
+  printf("\n");
 
-  // Main Menu
   printf("Welcome to Toe-Tac-Tic!\n");
   printf("Press \"Y\" to start playing or \"Q\" to quit\n");
 
@@ -19,25 +29,54 @@ int main(int argc, char *argv[]) {
   reset_board();
   char winner = ' ';
 
+  game_loop(winner);
+
+  return EXIT_SUCCESS;
+}
+
+void game_loop(char winner) {
   do {
     print_board();
     player_turn();
     winner = check_winner(PLAYER);
-    if (winner == PLAYER)
-      break;
+    if (winner == PLAYER) {
+      print_board();
+      show_winner(winner);
+
+      printf("Do you want to play again? \"Y\" or \"N\": \n");
+      char is_again = 'N';
+      scanf_s(" %c", &is_again); // watch out with the space!
+
+      if (toupper(is_again) == 'Y') {
+        winner = ' ';
+        reset_board();
+        continue;
+      } else {
+        break;
+      }
+    }
 
     print_board();
     enemy_turn();
     winner = check_winner(ENEMY);
-    if (winner == ENEMY)
-      break;
+    if (winner == ENEMY) {
+      print_board();
+      show_winner(winner);
+
+      printf("Do you want to play again? \"Y\" or \"N\": \n");
+      char is_again = 'N';
+      scanf_s(" %c", &is_again); // watch out with the space!
+
+      if (toupper(is_again) == 'Y') {
+        winner = ' ';
+        reset_board();
+        continue;
+      } else {
+        break;
+      }
+    }
 
   } while (winner == ' ');
-
-  print_board();
-  show_winner(winner);
-
-  return EXIT_SUCCESS;
 }
 
 void reset_board() {
@@ -147,11 +186,9 @@ int show_winner(char winner) {
     printf("+------------------+\n");
     printf("| $_$ Player wins! |\n");
     printf("+------------------+\n\n");
-    return EXIT_SUCCESS;
   } else {
     printf("+------------------+\n");
     printf("| *_* Enemy wins! |\n");
     printf("+------------------+\n\n");
-    return EXIT_SUCCESS;
   }
 }

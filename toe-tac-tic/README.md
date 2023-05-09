@@ -13,7 +13,7 @@ This game is played with 2 players, and each player play their turn and take act
 ## Future Works
 
 1. Customize the tile size
-2. Add "Play again" button
+2. ~~Add "Play again" button~~
 3. Add "vs bot mode"
 4. Add unique game modes
 5. Always show tile
