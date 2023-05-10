@@ -18,7 +18,7 @@ _coming soon_
 
 ## Future works
 
-1. Finish it
+1. ~~Finish it~~
 2. Add more jokes bapak-bapak
 3. Add unique power-ups
 4. Add more game mode
