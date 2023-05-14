@@ -5,3 +5,4 @@ Not all of the projects have been done, only some of them (or even only one of t
 - [not-redis](https://github.com/mhnaufal/nothing-to-c/tree/main/not-redis)
 - [Toe-Tac-Tic](https://github.com/mhnaufal/nothing-to-c/tree/main/toe-tac-tic)
 - [Hangman](https://github.com/mhnaufal/nothing-to-c/tree/main/hangman)
+- [Snacke](https://github.com/mhnaufal/nothing-to-c/tree/main/snacke)

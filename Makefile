@@ -4,6 +4,7 @@ MOVE_TO_KOMPILE = cd compiler
 MOVE_TO_SHELL = cd shell
 MOVE_TO_TIC = cd toe-tac-tic
 MOVE_TO_HANG = cd hangman
+MOVE_TO_SNACKE = cd snacke
 
 db: db_build
 	${MOVE_TO_DB} && ./command.out $(filter-out $@,$(MAKECMDGOALS))
@@ -37,6 +38,12 @@ hang: hang_build
 
 hang_build:
 	${MOVE_TO_HANG} && ${CC} hang.c -o hang.out -Wall -Wextra -pedantic
+
+snacke: snacke_build
+	${MOVE_TO_SNACKE} && ./snacke.out $(filter-out $@,$(MAKECMDGOALS))
+
+snacke_build:
+	${MOVE_TO_SNACKE} && ${CC} snacke.c -o snacke.out -Wall -Wextra -pedantic
 
 clean:
 	rm -rf *.exe *.out *.o
