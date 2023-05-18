@@ -1,10 +1,13 @@
 # Platformer 🙀
 
-_soon_
+When a small cat trying to find her way home.
 
 ## Installation
 
-_soon_
+1. Clone this repo
+2. Go to directory `sdl2-game/platformer`
+3. run `make all`
+4. Enjoy!
 
 ---
 
@@ -19,7 +22,6 @@ _soon_
 _soon_
 
 ---
-
 
 ## References
 

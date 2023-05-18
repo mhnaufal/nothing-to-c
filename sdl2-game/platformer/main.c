@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     surface = SDL_GetWindowSurface(window);
 
     // Fill the surface with white
-    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0x00, 0xFF, 0xFF));
+    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 16, 1, 61));
 
     SDL_Rect player;
     player.h = 100;
@@ -46,6 +46,15 @@ int main(int argc, char *argv[])
     SDL_FillRect(surface, &player, SDL_MapRGB(surface->format, 252, 7, 23));
 
     // Update the surface
+    SDL_UpdateWindowSurface(window);
+
+    SDL_Delay(1000);
+    SDL_Rect enemy;
+    enemy.h = 60;
+    enemy.w = player.w * 4.5;
+    enemy.x = WINDOW_WIDTH / 2 - enemy.w / 2;
+    enemy.y = player.y - player.h / 2 - 20;
+    SDL_FillRect(surface, &enemy, SDL_MapRGB(surface->format, 22, 225, 0));
     SDL_UpdateWindowSurface(window);
 
     // Make window stay still
