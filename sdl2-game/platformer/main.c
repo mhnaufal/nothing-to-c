@@ -1,78 +1,68 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <SDL2/SDL.h>
-
-#define WINDOW_WIDTH 640 * 1.5
-#define WINDOW_HEIGHT 480 * 1.5
+#include <main.h>
 
 int main(int argc, char *argv[])
 {
-    // Initialize window
-    SDL_Window *window = NULL;
+    init();
+    load_media();
 
-    // Initialize surface
-    SDL_Surface *surface = NULL;
+    // Apply the image
+    SDL_BlitSurface(global_hw, NULL, global_surface, NULL);
+    SDL_UpdateWindowSurface(global_window);
+    SDL_Delay(3000);
 
-    // Initialize SDL2
+    close_game();
+
+    return 0;
+}
+
+bool init()
+{
+    bool success = true;
+
+    // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to start SDL2: %s\n", SDL_GetError());
-        return 1;
+        return !success;
     }
 
     SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "SDL2 is ready!\n");
 
     // Create window
-    window = SDL_CreateWindow("Platformer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (window == NULL)
+    global_window = SDL_CreateWindow("Platformer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    if (global_window == NULL)
     {
         SDL_LogError(SDL_LOG_CATEGORY_VIDEO, "Failed to load the window: %s\n", SDL_GetError());
-        return 1;
+        return !success;
     }
 
-    // Put on the surface
-    surface = SDL_GetWindowSurface(window);
+    // Put on a surface to the window
+    global_surface = SDL_GetWindowSurface(global_window);
 
-    // Fill the surface with white
-    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 16, 1, 61));
+    return success;
+}
 
-    SDL_Rect player;
-    player.h = 100;
-    player.w = 100;
-    player.x = WINDOW_WIDTH / 2 - player.w / 2;
-    player.y = WINDOW_HEIGHT / 2 - player.h / 2;
+bool load_media()
+{
+    bool success = true;
 
-    SDL_FillRect(surface, &player, SDL_MapRGB(surface->format, 252, 7, 23));
+    global_hw = SDL_LoadBMP("./img/hello_world.bmp");
+    if (global_hw == NULL)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to the image to screen: %s\n", SDL_GetError());
+        return !success;
+    }
 
-    // Update the surface
-    SDL_UpdateWindowSurface(window);
+    return success;
+}
 
-    SDL_Delay(1000);
-    SDL_Rect enemy;
-    enemy.h = 60;
-    enemy.w = player.w * 4.5;
-    enemy.x = WINDOW_WIDTH / 2 - enemy.w / 2;
-    enemy.y = player.y - player.h / 2 - 20;
-    SDL_FillRect(surface, &enemy, SDL_MapRGB(surface->format, 22, 225, 0));
-    SDL_UpdateWindowSurface(window);
+void close_game()
+{
+    SDL_FreeSurface(global_surface);
+    global_hw = NULL;
 
-    // Make window stay still
-    // SDL_Event e;
-    // bool quit = false;
-    // while (quit == false)
-    // {
-    //     while (SDL_PollEvent(&e))
-    //     {
-    //         if (e.type == SDL_Quit)
-    //             quit = true;
-    //     }
-    // }
-    SDL_Delay(3000);
-    // sleep(1);
+    SDL_DestroyWindow(global_window);
+    global_window = NULL;
 
-    // Clean up everything
-    SDL_DestroyWindow(window);
     SDL_Quit();
-    return 0;
 }

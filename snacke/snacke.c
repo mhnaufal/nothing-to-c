@@ -53,6 +53,7 @@ void display_board()
 void movement()
 {
   move = getch();
+  char last_move = move;
 
   switch (move) {
     case 'w':
@@ -72,4 +73,23 @@ void movement()
       BOARD[PLAYER_X][PLAYER_Y] = HEAD;
       break;
   }
+
+  // switch (last_move) {
+  //   case 'w':
+  //     PLAYER_X = PLAYER_X - 1;
+  //     BOARD[PLAYER_X][PLAYER_Y] = HEAD;
+  //     break;
+  //   case 's':
+  //     PLAYER_X = PLAYER_X + 1;
+  //     BOARD[PLAYER_X][PLAYER_Y] = HEAD;
+  //     break;
+  //   case 'a':
+  //     PLAYER_Y = PLAYER_Y - 1;
+  //     BOARD[PLAYER_X][PLAYER_Y] = HEAD;
+  //     break;
+  //   case 'd':
+  //     PLAYER_Y = PLAYER_Y + 1;
+  //     BOARD[PLAYER_X][PLAYER_Y] = HEAD;
+  //     break;
+  // }
 }
