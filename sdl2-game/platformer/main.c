@@ -2,8 +2,51 @@
 
 int main(int argc, char *argv[])
 {
+    bool quit = false;
+    SDL_Event e;
+    global_current_surface = global_key_press[KEY_PRESS_SURFACE_DEFAULT];
+
     init();
+
+    while (!quit)
+    {
+        while (SDL_PollEvent(&e) != 0)
+        {
+            if (e.type == SDL_QUIT)
+            {
+                quit = true;
+            }
+            else if (e.type == SDL_KEYDOWN)
+            {
+                switch (e.key.keysym.sym)
+                {
+                case SDLK_UP:
+                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_UP];
+                    break;
+
+                case SDLK_DOWN:
+                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_DOWN];
+                    break;
+
+                case SDLK_RIGHT:
+                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_RIGHT];
+                    break;
+
+                case SDLK_LEFT:
+                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_LEFT];
+                    break;
+
+                default:
+                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_DEFAULT];
+                    break;
+                }
+
+                SDL_BlitSurface(global_current_surface, NULL, global_surface, NULL);
+                SDL_UpdateWindowSurface(global_window);
     load_media();
+            }
+        }
+    }
 
     // Apply the image
     SDL_BlitSurface(global_hw, NULL, global_surface, NULL);
@@ -46,7 +89,40 @@ bool load_media()
 {
     bool success = true;
 
-    
+    global_key_press[KEY_PRESS_SURFACE_DEFAULT] = load_surface("../img/press.bmp");
+    if (global_key_press[KEY_PRESS_SURFACE_DEFAULT] == NULL)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the default image\n");
+        success = false;
+    }
+
+    global_key_press[KEY_PRESS_SURFACE_UP] = load_surface("../img/up.bmp");
+    if (global_key_press[KEY_PRESS_SURFACE_UP] == NULL)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the up image\n");
+        success = false;
+    }
+
+    global_key_press[KEY_PRESS_SURFACE_DOWN] = load_surface("../img/down.bmp");
+    if (global_key_press[KEY_PRESS_SURFACE_DOWN] == NULL)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the down image\n");
+        success = false;
+    }
+
+    global_key_press[KEY_PRESS_SURFACE_LEFT] = load_surface("../img/left.bmp");
+    if (global_key_press[KEY_PRESS_SURFACE_LEFT] == NULL)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the left image\n");
+        success = false;
+    }
+
+    global_key_press[KEY_PRESS_SURFACE_RIGHT] = load_surface("../img/right.bmp");
+    if (global_key_press[KEY_PRESS_SURFACE_RIGHT] == NULL)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the right image\n");
+        success = false;
+    }
 
     return success;
 }
