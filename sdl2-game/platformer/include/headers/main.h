@@ -1,8 +1,9 @@
 #pragma once
 
 #include <stdio.h>
-#include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
+#include <unistd.h>
 #include <SDL2/SDL.h>
 
 #define WINDOW_WIDTH 640 * 1.5
@@ -12,6 +13,18 @@ SDL_Window *global_window = NULL;
 SDL_Surface *global_surface = NULL;
 SDL_Surface *global_hw = NULL;
 
+
+enum KeyPressSurface
+{
+    KEY_PRESS_SURFACE_DEFAULT,
+    KEY_PRESS_SURFACE_UP,
+    KEY_PRESS_SURFACE_DOWN,
+    KEY_PRESS_SURFACE_LEFT,
+    KEY_PRESS_SURFACE_RIGHT,
+    KEY_PRESS_SURFACE_TOTAL
+};
+
 bool init();
 bool load_media();
 void close_game();
+SDL_Surface *load_surface(char *path);

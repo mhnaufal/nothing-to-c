@@ -35,6 +35,6 @@ _soon_
 
 ## References
 
-1. https://lazyfoo.net/tutorials/SDL/01_hello_SDL/index2.php
+1. https://lazyfoo.net/tutorials/SDL/index2.php
 2. https://wiki.libsdl.org/SDL2/
-3. https://www.parallelrealities.co.uk/tutorials/ppp/ppp1.php
+3. https://www.parallelrealities.co.uk/tutorials

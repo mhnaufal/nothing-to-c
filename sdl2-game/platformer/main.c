@@ -46,12 +46,7 @@ bool load_media()
 {
     bool success = true;
 
-    global_hw = SDL_LoadBMP("./img/hello_world.bmp");
-    if (global_hw == NULL)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to the image to screen: %s\n", SDL_GetError());
-        return !success;
-    }
+    
 
     return success;
 }
@@ -65,4 +60,15 @@ void close_game()
     global_window = NULL;
 
     SDL_Quit();
+}
+
+SDL_Surface *load_surface(char *path)
+{
+    SDL_Surface *loaded_surface = SDL_LoadBMP(path);
+    if (load_surface == NULL)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to load image to the screen: %s\n", SDL_GetError());
+    }
+
+    return load_surface;
 }
