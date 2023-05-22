@@ -27,6 +27,6 @@ typedef struct
     SDL_Texture *texture;
 } GameWindow;
 
-bool initSdl(GameState *p_game_state);
+bool initSdl();
 bool initWindow(GameWindow *p_game_window, const char *p_title);
-void cleanUp();
+void cleanUp(GameWindow *p_game_window);
