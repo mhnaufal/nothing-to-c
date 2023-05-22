@@ -1,31 +1,32 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <unistd.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
-#define WINDOW_WIDTH 640 * 1.5
-#define WINDOW_HEIGHT 480 * 1.5
+const int WINDOW_WIDTH = 640 * 1.2;
+const int WINDOW_HEIGHT = 480 * 1.2;
 
-enum KeyPressSurface
+typedef struct
 {
-    KEY_PRESS_SURFACE_DEFAULT,
-    KEY_PRESS_SURFACE_UP,
-    KEY_PRESS_SURFACE_DOWN,
-    KEY_PRESS_SURFACE_LEFT,
-    KEY_PRESS_SURFACE_RIGHT,
-    KEY_PRESS_SURFACE_TOTAL
-};
+    bool Menu;
+    bool Instruction;
+    bool Playing;
+    bool Win;
+    bool Lose;
+    bool Exit;
+} GameState;
 
-SDL_Window *global_window = NULL;
-SDL_Surface *global_surface = NULL;
-SDL_Surface *global_hw = NULL;
-SDL_Surface* global_key_press[KEY_PRESS_SURFACE_TOTAL];
-SDL_Surface* global_current_surface = NULL;
+typedef struct
+{
+    SDL_Window *window;
+    SDL_Window *surface;
+    SDL_Renderer *renderer;
+    SDL_Texture *texture;
+} GameWindow;
 
-bool init();
-bool load_media();
-void close_game();
-SDL_Surface *load_surface(char *path);
+bool initSdl(GameState *p_game_state);
+bool initWindow(GameWindow *p_game_window, const char *p_title);
+void cleanUp();

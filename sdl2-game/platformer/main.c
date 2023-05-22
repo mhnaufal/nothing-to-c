@@ -2,149 +2,42 @@
 
 int main(int argc, char *argv[])
 {
-    bool quit = false;
-    SDL_Event e;
-    global_current_surface = global_key_press[KEY_PRESS_SURFACE_DEFAULT];
+    GameState game_state = {false, false, false, false, false, false};
+    GameWindow game_window = {NULL, NULL, NULL, NULL};
 
-    init();
+    initSdl(&game_state);
+    initWindow(&game_window, "Catty The Cat");
 
-    while (!quit)
-    {
-        while (SDL_PollEvent(&e) != 0)
-        {
-            if (e.type == SDL_QUIT)
-            {
-                quit = true;
-            }
-            else if (e.type == SDL_KEYDOWN)
-            {
-                switch (e.key.keysym.sym)
-                {
-                case SDLK_UP:
-                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_UP];
-                    break;
-
-                case SDLK_DOWN:
-                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_DOWN];
-                    break;
-
-                case SDLK_RIGHT:
-                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_RIGHT];
-                    break;
-
-                case SDLK_LEFT:
-                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_LEFT];
-                    break;
-
-                default:
-                    global_current_surface = global_key_press[KEY_PRESS_SURFACE_DEFAULT];
-                    break;
-                }
-
-                SDL_BlitSurface(global_current_surface, NULL, global_surface, NULL);
-                SDL_UpdateWindowSurface(global_window);
-    load_media();
-            }
-        }
-    }
-
-    // Apply the image
-    SDL_BlitSurface(global_hw, NULL, global_surface, NULL);
-    SDL_UpdateWindowSurface(global_window);
-    SDL_Delay(3000);
-
-    close_game();
-
+    SDL_Delay(2000);
     return 0;
 }
 
-bool init()
+bool initSdl(GameState *p_game_state)
 {
-    bool success = true;
+    bool is_success = true;
 
-    // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
-        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to start SDL2: %s\n", SDL_GetError());
-        return !success;
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_CRITICAL, "[Failed to init SDL2: %s]\n", SDL_GetError());
+        is_success = false;
     }
 
-    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "SDL2 is ready!\n");
+    p_game_state->Menu = true;
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[Menu status: %d]\n", p_game_state->Menu);
 
-    // Create window
-    global_window = SDL_CreateWindow("Platformer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (global_window == NULL)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_VIDEO, "Failed to load the window: %s\n", SDL_GetError());
-        return !success;
-    }
-
-    // Put on a surface to the window
-    global_surface = SDL_GetWindowSurface(global_window);
-
-    return success;
+    return is_success;
 }
 
-bool load_media()
+bool initWindow(GameWindow *p_game_window, const char *p_title)
 {
-    bool success = true;
+    bool is_success = true;
 
-    global_key_press[KEY_PRESS_SURFACE_DEFAULT] = load_surface("../img/press.bmp");
-    if (global_key_press[KEY_PRESS_SURFACE_DEFAULT] == NULL)
+    p_game_window->window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    if (p_game_window->window == NULL)
     {
-        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the default image\n");
-        success = false;
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_CRITICAL, "[Failed to init SDL2 window: %s]\n", SDL_GetError());
+        is_success = false;
     }
 
-    global_key_press[KEY_PRESS_SURFACE_UP] = load_surface("../img/up.bmp");
-    if (global_key_press[KEY_PRESS_SURFACE_UP] == NULL)
-    {
-        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the up image\n");
-        success = false;
-    }
-
-    global_key_press[KEY_PRESS_SURFACE_DOWN] = load_surface("../img/down.bmp");
-    if (global_key_press[KEY_PRESS_SURFACE_DOWN] == NULL)
-    {
-        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the down image\n");
-        success = false;
-    }
-
-    global_key_press[KEY_PRESS_SURFACE_LEFT] = load_surface("../img/left.bmp");
-    if (global_key_press[KEY_PRESS_SURFACE_LEFT] == NULL)
-    {
-        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the left image\n");
-        success = false;
-    }
-
-    global_key_press[KEY_PRESS_SURFACE_RIGHT] = load_surface("../img/right.bmp");
-    if (global_key_press[KEY_PRESS_SURFACE_RIGHT] == NULL)
-    {
-        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "Failed to load the right image\n");
-        success = false;
-    }
-
-    return success;
-}
-
-void close_game()
-{
-    SDL_FreeSurface(global_surface);
-    global_hw = NULL;
-
-    SDL_DestroyWindow(global_window);
-    global_window = NULL;
-
-    SDL_Quit();
-}
-
-SDL_Surface *load_surface(char *path)
-{
-    SDL_Surface *loaded_surface = SDL_LoadBMP(path);
-    if (load_surface == NULL)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to load image to the screen: %s\n", SDL_GetError());
-    }
-
-    return load_surface;
+    return is_success;
 }
