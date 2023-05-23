@@ -2,13 +2,17 @@
 
 int main(int argc, char *argv[])
 {
-    GameState game_state = {false, false, false, false, false, false};
-    SDLGame sdl_game = {NULL, NULL, NULL, NULL};
-
     initSdl();
+
+    GameState game_state = {true, false, false, false, false, false};
+    SDLGame sdl_game = {NULL, NULL};
+
+    SDL_Rect entity_size = {WINDOW_WIDTH / 2 - PIXEL_WIDTH / 2, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
+    Entity cat1 = {&entity_size, NULL};
+
     initWindow(&sdl_game, "Catty The Cat");
 
-    loadTexture(&sdl_game, "./res/gfx/cat1.png");
+    loadTexture(&sdl_game, &cat1, "./res/gfx/cat1.png");
     SDL_Event event;
 
     while (!game_state.Exit)
@@ -21,10 +25,10 @@ int main(int argc, char *argv[])
             }
         }
         clearRenderer(&sdl_game);
-        displayRenderer(&sdl_game);
+        displayRenderer(&sdl_game, &cat1);
     }
 
-    cleanUp(&sdl_game);
+    cleanUp(&sdl_game, &cat1);
     SDL_Quit();
 
     return 0;
@@ -70,22 +74,22 @@ bool initWindow(SDLGame *p_sdl_game, const char *p_title)
     return is_success;
 }
 
-void cleanUp(SDLGame *p_sdl_game)
+void cleanUp(SDLGame *p_sdl_game, Entity *entity)
 {
+    SDL_DestroyTexture(entity->texture);
     SDL_DestroyRenderer(p_sdl_game->renderer);
-    SDL_DestroyTexture(p_sdl_game->texture);
     SDL_DestroyWindow(p_sdl_game->window);
 }
 
-SDL_Texture *loadTexture(SDLGame *p_sdl_game, const char *p_path)
+SDL_Texture *loadTexture(SDLGame *p_sdl_game, Entity *entitty, const char *p_path)
 {
-    p_sdl_game->texture = IMG_LoadTexture(p_sdl_game->renderer, p_path);
-    if (p_sdl_game->texture == NULL)
+    entitty->texture = IMG_LoadTexture(p_sdl_game->renderer, p_path);
+    if (entitty->texture == NULL)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to load texture: %s]\n", SDL_GetError());
     }
 
-    return p_sdl_game->texture;
+    return entitty->texture;
 }
 
 void clearRenderer(SDLGame *p_sdl_game)
@@ -93,11 +97,11 @@ void clearRenderer(SDLGame *p_sdl_game)
     SDL_RenderClear(p_sdl_game->renderer);
 }
 
-void displayRenderer(SDLGame *p_sdl_game)
+void displayRenderer(SDLGame *p_sdl_game, Entity *entity)
 {
-    SDL_Rect src = {0, 0, PIXEL_WIDTH, PIXEL_HEIGHT};
-    SDL_Rect dst = {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, PIXEL_WIDTH, PIXEL_HEIGHT};
+    SDL_Rect src = {0, 0, entity->frame->w, entity->frame->h};
+    SDL_Rect dst = {entity->frame->x, entity->frame->y, entity->frame->w, entity->frame->h};
 
-    SDL_RenderCopy(p_sdl_game->renderer, p_sdl_game->texture, &src, &dst);
+    SDL_RenderCopy(p_sdl_game->renderer, entity->texture, &src, &dst);
     SDL_RenderPresent(p_sdl_game->renderer);
 }
