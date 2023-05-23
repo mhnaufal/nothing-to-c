@@ -39,7 +39,11 @@ typedef struct
 
 bool initSdl();
 bool initWindow(SDLGame *p_sdl_game, const char *p_title);
-void cleanUp(SDLGame *p_sdl_game, Entity *entity);
+void cleanUp(SDLGame *p_sdl_game, Entity *p_entity);
+
 SDL_Texture *loadTexture(SDLGame *p_sdl_game, Entity *entitty, const char *p_path);
+
 void clearRenderer(SDLGame *p_sdl_game);
-void displayRenderer(SDLGame *p_sdl_game, Entity *entity);
+void displayRenderer(SDLGame *p_sdl_game, Entity *p_entity);
+
+void updateEntity(Entity *p_entity, SDL_Rect p_rect);

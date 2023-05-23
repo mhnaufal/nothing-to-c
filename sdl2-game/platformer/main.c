@@ -7,7 +7,8 @@ int main(int argc, char *argv[])
     GameState game_state = {true, false, false, false, false, false};
     SDLGame sdl_game = {NULL, NULL};
 
-    SDL_Rect entity_size = {WINDOW_WIDTH / 2 - PIXEL_WIDTH / 2, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
+    SDL_Rect entity_size = {0, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
+    SDL_Rect new_size = {1, -1, 1, 1};
     Entity cat1 = {&entity_size, NULL};
 
     initWindow(&sdl_game, "Catty The Cat");
@@ -26,6 +27,9 @@ int main(int argc, char *argv[])
                 game_state.Exit = true;
             }
         }
+
+        updateEntity(&cat1, new_size);
+
         clearRenderer(&sdl_game);
         displayRenderer(&sdl_game, &cat1);
 
@@ -34,7 +38,7 @@ int main(int argc, char *argv[])
         if (FRAME_DELAY >= FRAME_TIME)
             SDL_Delay(FRAME_DELAY - FRAME_TIME);
 
-        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", FRAME_TIME);
+        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d - %d\n", FRAME_TIME, FRAME_DELAY);
     }
 
     cleanUp(&sdl_game, &cat1);
@@ -83,9 +87,9 @@ bool initWindow(SDLGame *p_sdl_game, const char *p_title)
     return is_success;
 }
 
-void cleanUp(SDLGame *p_sdl_game, Entity *entity)
+void cleanUp(SDLGame *p_sdl_game, Entity *p_entity)
 {
-    SDL_DestroyTexture(entity->texture);
+    SDL_DestroyTexture(p_entity->texture);
     SDL_DestroyRenderer(p_sdl_game->renderer);
     SDL_DestroyWindow(p_sdl_game->window);
 }
@@ -106,11 +110,19 @@ void clearRenderer(SDLGame *p_sdl_game)
     SDL_RenderClear(p_sdl_game->renderer);
 }
 
-void displayRenderer(SDLGame *p_sdl_game, Entity *entity)
+void displayRenderer(SDLGame *p_sdl_game, Entity *p_entity)
 {
-    SDL_Rect src = {0, 0, entity->frame->w, entity->frame->h};
-    SDL_Rect dst = {entity->frame->x, entity->frame->y, entity->frame->w, entity->frame->h};
+    SDL_Rect src = {0, 0, p_entity->frame->w, p_entity->frame->h};
+    SDL_Rect dst = {p_entity->frame->x, p_entity->frame->y, p_entity->frame->w, p_entity->frame->h};
 
-    SDL_RenderCopy(p_sdl_game->renderer, entity->texture, &src, &dst);
+    SDL_RenderCopy(p_sdl_game->renderer, p_entity->texture, &src, &dst);
     SDL_RenderPresent(p_sdl_game->renderer);
+}
+
+void updateEntity(Entity *p_entity, SDL_Rect p_rect)
+{
+    p_entity->frame->w += p_rect.w;
+    p_entity->frame->h += p_rect.h;
+    p_entity->frame->x += p_rect.x;
+    p_entity->frame->y += p_rect.y;
 }
