@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
 
     while (!game_state.Exit)
     {
+        FRAME_START = SDL_GetTicks();
+
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
@@ -26,6 +28,13 @@ int main(int argc, char *argv[])
         }
         clearRenderer(&sdl_game);
         displayRenderer(&sdl_game, &cat1);
+
+        FRAME_TIME = SDL_GetTicks() - FRAME_START;
+
+        if (FRAME_DELAY >= FRAME_TIME)
+            SDL_Delay(FRAME_DELAY - FRAME_TIME);
+
+        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", FRAME_TIME);
     }
 
     cleanUp(&sdl_game, &cat1);
