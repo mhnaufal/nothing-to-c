@@ -6,8 +6,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-const int WINDOW_WIDTH = 640;
-const int WINDOW_HEIGHT = 480;
+const int WINDOW_WIDTH = 640 * 1.5;
+const int WINDOW_HEIGHT = 480 * 1.5;
 const int PIXEL_WIDTH = 32 * 2;
 const int PIXEL_HEIGHT = 32 * 2;
 const int FPS = 60;
@@ -37,13 +37,12 @@ typedef struct
     SDL_Texture *texture;
 } Entity;
 
-bool initSdl();
+bool initSDL();
 bool initWindow(SDLGame *p_sdl_game, const char *p_title);
-void cleanUp(SDLGame *p_sdl_game, Entity *p_entity);
+void cleanUpSDL(SDLGame *p_sdl_game);
 
-SDL_Texture *loadTexture(SDLGame *p_sdl_game, Entity *entitty, const char *p_path);
+SDL_Texture *loadTexture(SDLGame *p_sdl_game, const char *p_path);
 
-void clearRenderer(SDLGame *p_sdl_game);
-void displayRenderer(SDLGame *p_sdl_game, Entity *p_entity);
-
+Entity initEntity(SDL_Rect p_rect, SDL_Texture *p_texture);
+void drawEntity(SDLGame *p_sdl_game, Entity *p_entity);
 void updateEntity(Entity *p_entity, SDL_Rect p_rect);
