@@ -6,10 +6,12 @@ int main(int argc, char *argv[])
 
     GameState game_state = {true, false, false, false, false, false};
     SDLGame sdl_game = {NULL, NULL};
+    TimeManager time_manager = {60, 1000 / time_manager.FPS, 0, 0};
 
     initWindow(&sdl_game, "Catty The Cat");
-    playGame(&sdl_game, game_state);
+    playGame(&sdl_game, game_state, time_manager);
     cleanUpSDL(&sdl_game);
+
     SDL_Quit();
 
     return 0;
@@ -61,10 +63,10 @@ void cleanUpSDL(SDLGame *p_sdl_game)
     SDL_DestroyWindow(p_sdl_game->window);
 }
 
-void playGame(SDLGame *sdl_game, GameState game_state)
+void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
 {
-    SDL_Rect entity_size = {0, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
-    SDL_Rect new_size = {1, -1, 1, 1};
+    SDL_Rect entity_size = {WINDOW_WIDTH / 2 - PIXEL_WIDTH, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
+    SDL_Rect new_size = {0, 0, 0, 0};
 
     SDL_Texture *texture1 = loadTexture(sdl_game, "./res/gfx/cat1.png");
     Entity cat1 = initEntity(entity_size, texture1);
@@ -75,7 +77,7 @@ void playGame(SDLGame *sdl_game, GameState game_state)
 
     while (!game_state.Exit)
     {
-        FRAME_START = SDL_GetTicks();
+        time_manager.FRAME_START = SDL_GetTicks();
 
         while (SDL_PollEvent(&event))
         {
@@ -93,12 +95,12 @@ void playGame(SDLGame *sdl_game, GameState game_state)
 
         renderTexture(sdl_game);
 
-        FRAME_TIME = SDL_GetTicks() - FRAME_START;
+        time_manager.FRAME_TIME = SDL_GetTicks() - time_manager.FRAME_START;
 
-        if (FRAME_DELAY >= FRAME_TIME)
-            SDL_Delay(FRAME_DELAY - FRAME_TIME);
+        if (time_manager.FRAME_DELAY >= time_manager.FRAME_TIME)
+            SDL_Delay(time_manager.FRAME_DELAY - time_manager.FRAME_TIME);
 
-        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d - %d\n", FRAME_TIME, FRAME_DELAY);
+        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", 60 - time_manager.FRAME_TIME);
     }
 }
 
@@ -115,7 +117,7 @@ SDL_Texture *loadTexture(SDLGame *p_sdl_game, const char *p_path)
 
 void clearRenderer(SDLGame *p_sdl_game)
 {
-    SDL_RenderClear(p_sdl_game);
+    SDL_RenderClear(p_sdl_game->renderer);
 }
 
 void renderTexture(SDLGame *p_sdl_game)
@@ -148,9 +150,6 @@ void updateEntity(Entity *p_entity, SDL_Rect p_rect)
 
 Map loadMap(SDLGame *p_sdl_game)
 {
-    SDL_Rect src = {0, 0, 32, 32};
-    SDL_Rect dst = {32, 32, 32, 32};
-
     Map map;
     map.grass = loadTexture(p_sdl_game, "./res/gfx/dirt.png");
     map.rock = loadTexture(p_sdl_game, "./res/gfx/rock.png");
@@ -161,7 +160,6 @@ Map loadMap(SDLGame *p_sdl_game)
 
 void drawMap(Map *p_map, SDLGame *p_sdl_game)
 {
-    int current_tile = 0;
     SDL_Rect src = {0, 0, 32, 32};
     SDL_Rect dst = {0, 0, 32, 32};
 
