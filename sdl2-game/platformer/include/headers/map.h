@@ -1,9 +1,24 @@
 #pragma once
 
-const int TILE_WIDTH = 20;
-const int TILE_HEIGHT = 15;
+#include <game.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
-int level1[TILE_HEIGHT][TILE_WIDTH] = {
+static const int TILE_WIDTH = 20;
+static const int TILE_HEIGHT = 15;
+
+typedef struct
+{
+    int tile[TILE_HEIGHT][TILE_WIDTH];
+    SDL_Texture *grass;
+    SDL_Texture *rock;
+    SDL_Texture *water;
+} Map;
+
+static int level1[TILE_HEIGHT][TILE_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -20,3 +35,6 @@ int level1[TILE_HEIGHT][TILE_WIDTH] = {
     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
+
+Map loadMap(SDLGame *p_sdl_game);
+void drawMap(Map *p_map, SDLGame *p_sdl_game);
