@@ -8,45 +8,7 @@ int main(int argc, char *argv[])
     SDLGame sdl_game = {NULL, NULL};
 
     initWindow(&sdl_game, "Catty The Cat");
-
-    SDL_Rect entity_size = {0, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
-    SDL_Rect new_size = {1, -1, 1, 1};
-
-    SDL_Texture *texture1 = loadTexture(&sdl_game, "./res/gfx/cat1.png");
-    Entity cat1 = initEntity(entity_size, texture1);
-
-    Map map1 = loadMap(&sdl_game);
-
-    SDL_Event event;
-
-    while (!game_state.Exit)
-    {
-        FRAME_START = SDL_GetTicks();
-
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-            {
-                game_state.Exit = true;
-            }
-        }
-
-        clearRenderer(&sdl_game);
-
-        drawMap(&map1, &sdl_game);
-        drawEntity(&sdl_game, &cat1);
-        updateEntity(&cat1, new_size);
-
-        renderTexture(&sdl_game);
-
-        FRAME_TIME = SDL_GetTicks() - FRAME_START;
-
-        if (FRAME_DELAY >= FRAME_TIME)
-            SDL_Delay(FRAME_DELAY - FRAME_TIME);
-
-        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d - %d\n", FRAME_TIME, FRAME_DELAY);
-    }
-
+    playGame(&sdl_game, game_state);
     cleanUpSDL(&sdl_game);
     SDL_Quit();
 
@@ -97,6 +59,47 @@ void cleanUpSDL(SDLGame *p_sdl_game)
 {
     SDL_DestroyRenderer(p_sdl_game->renderer);
     SDL_DestroyWindow(p_sdl_game->window);
+}
+
+void playGame(SDLGame *sdl_game, GameState game_state)
+{
+    SDL_Rect entity_size = {0, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
+    SDL_Rect new_size = {1, -1, 1, 1};
+
+    SDL_Texture *texture1 = loadTexture(sdl_game, "./res/gfx/cat1.png");
+    Entity cat1 = initEntity(entity_size, texture1);
+
+    Map map1 = loadMap(sdl_game);
+
+    SDL_Event event;
+
+    while (!game_state.Exit)
+    {
+        FRAME_START = SDL_GetTicks();
+
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                game_state.Exit = true;
+            }
+        }
+
+        clearRenderer(sdl_game);
+
+        drawMap(&map1, sdl_game);
+        drawEntity(sdl_game, &cat1);
+        updateEntity(&cat1, new_size);
+
+        renderTexture(sdl_game);
+
+        FRAME_TIME = SDL_GetTicks() - FRAME_START;
+
+        if (FRAME_DELAY >= FRAME_TIME)
+            SDL_Delay(FRAME_DELAY - FRAME_TIME);
+
+        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d - %d\n", FRAME_TIME, FRAME_DELAY);
+    }
 }
 
 SDL_Texture *loadTexture(SDLGame *p_sdl_game, const char *p_path)
