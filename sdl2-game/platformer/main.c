@@ -65,8 +65,8 @@ void cleanUpSDL(SDLGame *p_sdl_game)
 
 void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
 {
-    SDL_Rect entity_size = {WINDOW_WIDTH / 2 - PIXEL_WIDTH, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
-    SDL_Rect new_size = {0, 0, 0, 0};
+    SDL_FRect entity_size = {WINDOW_WIDTH / 2 - PIXEL_WIDTH, WINDOW_HEIGHT / 2 - PIXEL_HEIGHT, PIXEL_WIDTH, PIXEL_HEIGHT};
+    SDL_FRect new_size = {0, 0, 0, 0};
 
     SDL_Texture *texture1 = loadTexture(sdl_game, "./res/gfx/cat1.png");
     Entity cat1 = initEntity(entity_size, texture1);
