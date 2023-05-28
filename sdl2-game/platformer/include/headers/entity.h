@@ -7,13 +7,20 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef struct
+typedef struct Velocity
 {
-    SDL_FRect *frame;
+    float x;
+    float y;
+} Velocity;
+
+typedef struct Entity
+{
+    SDL_FRect *property;
     SDL_Texture *texture;
+    Velocity velocity;
 } Entity;
 
-Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture);
+Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture, Velocity v);
 void drawEntity(SDLGame *p_sdl_game, Entity *p_entity);
-void updateEntity(Entity *p_entity, SDL_FRect p_rect);
+void updateEntity(Entity *p_entity, SDL_FRect p_rect, Velocity p_velocity);
 void playerMove(Entity *p_entity);

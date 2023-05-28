@@ -69,7 +69,8 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
     SDL_FRect new_size = {0, 0, 0, 0};
 
     SDL_Texture *texture1 = loadTexture(sdl_game, "./res/gfx/cat1.png");
-    Entity cat1 = initEntity(entity_size, texture1);
+    Velocity velo1 = {0, 1.3};
+    Entity cat1 = initEntity(entity_size, texture1, velo1);
 
     Map map1 = loadMap(sdl_game);
 
@@ -90,17 +91,18 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
         clearRenderer(sdl_game);
 
         drawMap(&map1, sdl_game);
+        updateEntity(&cat1, new_size, velo1);
         drawEntity(sdl_game, &cat1);
-        updateEntity(&cat1, new_size);
 
         renderTexture(sdl_game);
 
         time_manager.FRAME_TIME = SDL_GetTicks() - time_manager.FRAME_START;
 
         if (time_manager.FRAME_DELAY >= time_manager.FRAME_TIME)
+        {
             SDL_Delay(time_manager.FRAME_DELAY - time_manager.FRAME_TIME);
-
-        SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", 60 - time_manager.FRAME_TIME);
+            SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", 60 - time_manager.FRAME_TIME);
+        }
     }
 }
 

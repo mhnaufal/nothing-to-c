@@ -1,32 +1,34 @@
 #include <entity.h>
 #include <main.h>
 
-Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture)
+Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture, Velocity v)
 {
-    Entity ent = {&p_rect, p_texture};
+    Entity ent = {&p_rect, p_texture, v};
 
     return ent;
 }
 
 void drawEntity(SDLGame *p_sdl_game, Entity *p_entity)
 {
-    SDL_Rect src = {0, 0, p_entity->frame->w, p_entity->frame->h};
-    SDL_Rect dst = {p_entity->frame->x, p_entity->frame->y, p_entity->frame->w, p_entity->frame->h};
+    SDL_Rect src = {0, 0, p_entity->property->w, p_entity->property->h};
+    SDL_Rect dst = {p_entity->property->x, p_entity->property->y, p_entity->property->w, p_entity->property->h};
 
     SDL_RenderCopy(p_sdl_game->renderer, p_entity->texture, &src, &dst);
 }
 
-void updateEntity(Entity *p_entity, SDL_FRect p_rect)
+void updateEntity(Entity *p_entity, SDL_FRect p_rect, Velocity p_velocity)
 {
-    p_entity->frame->w += p_rect.w;
-    p_entity->frame->h += p_rect.h;
-    p_entity->frame->x += p_rect.x;
-    p_entity->frame->y += p_rect.y + (0.9 * SDL_GetTicks() / 250); // simple enough gravity implementation
-
-    if (p_entity->frame->y >= 400) {
-        p_entity->frame->y = 400;
+    if (p_entity->property->y + p_entity->property->h >= WINDOW_HEIGHT - (PIXEL_HEIGHT * 1.5))
+        p_entity->velocity.y = 0;
+    else
+    {
+        p_entity->velocity.y += GRAVITY;
+        p_entity->property->x += p_entity->velocity.x;
+        p_entity->property->y += p_entity->velocity.y;
     }
 
+    p_entity->property->w += p_rect.w;
+    p_entity->property->h += p_rect.h;
 }
 
 void playerMove(Entity *p_entity)

@@ -10,8 +10,9 @@ static const int WINDOW_WIDTH = 640;
 static const int WINDOW_HEIGHT = 480;
 static const int PIXEL_WIDTH = 32 * 2;
 static const int PIXEL_HEIGHT = 32 * 2;
+static int GRAVITY = 0.5;
 
-typedef struct
+typedef struct GameState
 {
     bool Menu;
     bool Instruction;
@@ -21,13 +22,13 @@ typedef struct
     bool Exit;
 } GameState;
 
-typedef struct
+typedef struct SDLGame
 {
     SDL_Window *window;
     SDL_Renderer *renderer;
 } SDLGame;
 
-typedef struct
+typedef struct TimeManager
 {
     const int FPS;
     const int FRAME_DELAY;
