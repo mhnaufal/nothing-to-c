@@ -86,12 +86,13 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
             {
                 game_state.Exit = true;
             }
+            playerMove(&cat1, &event);
         }
 
         clearRenderer(sdl_game);
 
         drawMap(&map1, sdl_game);
-        updateEntity(&cat1, new_size, velo1);
+        updateEntity(&cat1, new_size);
         drawEntity(sdl_game, &cat1);
 
         renderTexture(sdl_game);

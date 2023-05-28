@@ -22,5 +22,5 @@ typedef struct Entity
 
 Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture, Velocity v);
 void drawEntity(SDLGame *p_sdl_game, Entity *p_entity);
-void updateEntity(Entity *p_entity, SDL_FRect p_rect, Velocity p_velocity);
-void playerMove(Entity *p_entity);
+void updateEntity(Entity *p_entity, SDL_FRect p_rect);
+void playerMove(Entity *p_entity, SDL_Event *p_event);

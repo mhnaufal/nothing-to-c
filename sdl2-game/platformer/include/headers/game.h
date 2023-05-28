@@ -10,7 +10,7 @@ static const int WINDOW_WIDTH = 640;
 static const int WINDOW_HEIGHT = 480;
 static const int PIXEL_WIDTH = 32 * 2;
 static const int PIXEL_HEIGHT = 32 * 2;
-static int GRAVITY = 0.5;
+static float GRAVITY = 0.18;
 
 typedef struct GameState
 {
