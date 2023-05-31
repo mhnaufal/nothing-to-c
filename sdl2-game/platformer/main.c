@@ -29,7 +29,13 @@ bool initSDL()
 
     if (!(IMG_INIT_PNG))
     {
-        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 Image for PNG: %s]\n", SDL_GetError());
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 Image for PNG: %s]\n", IMG_GetError());
+        is_success = false;
+    }
+
+    if (!(TTF_Init() < 0))
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 TTF Font: %s]\n", TTF_GetError());
         is_success = false;
     }
 
@@ -59,8 +65,18 @@ bool initWindow(SDLGame *p_sdl_game, const char *p_title)
 
 void cleanUpSDL(SDLGame *p_sdl_game)
 {
+    TTF_CloseFont(p_sdl_game->font);
+    SDL_DestroyTexture(p_sdl_game->texture);
     SDL_DestroyRenderer(p_sdl_game->renderer);
     SDL_DestroyWindow(p_sdl_game->window);
+
+    p_sdl_game->texture = NULL;
+    p_sdl_game->renderer = NULL;
+    p_sdl_game->window = NULL;
+
+    TTF_Quit();
+    IMG_Quit();
+    SDL_Quit();
 }
 
 void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
@@ -95,6 +111,8 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
         updateEntity(&cat1, new_size);
         drawEntity(sdl_game, &cat1);
 
+        drawText(sdl_game, "Cat Life: ", WINDOW_WIDTH / 2, 0, 0, 0, 0, 24);
+
         renderTexture(sdl_game);
 
         time_manager.FRAME_TIME = SDL_GetTicks() - time_manager.FRAME_START;
@@ -126,4 +144,28 @@ void clearRenderer(SDLGame *p_sdl_game)
 void renderTexture(SDLGame *p_sdl_game)
 {
     SDL_RenderPresent(p_sdl_game->renderer);
+}
+
+void drawText(SDLGame *p_sdl_game, const char *p_text, int p_x, int p_y, int p_r, int p_g, int p_b, int p_size)
+{
+    TTF_Font *font = TTF_OpenFont("./res/font/open_sans.ttf", p_size);
+    if (!font)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init load TTF font: %s]\n", TTF_GetError());
+    }
+
+    SDL_Color color = {p_r, p_g, p_b, 255};
+
+    SDL_Surface *text_surface = TTF_RenderText_Solid(font, p_text, color);
+    if (!text_surface)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to render font text: %s]\n", TTF_GetError());
+    }
+
+    p_sdl_game->texture = SDL_CreateTextureFromSurface(p_sdl_game->renderer, text_surface);
+
+    SDL_Rect dst = {p_x, p_y, text_surface->w, text_surface->h};
+    SDL_FreeSurface(text_surface);
+    SDL_RenderCopy(p_sdl_game->renderer, p_sdl_game->texture, NULL, &dst);
+    SDL_DestroyTexture(p_sdl_game->texture);
 }

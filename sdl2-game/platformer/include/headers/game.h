@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -26,6 +27,8 @@ typedef struct SDLGame
 {
     SDL_Window *window;
     SDL_Renderer *renderer;
+    SDL_Texture *texture;
+    TTF_Font *font;
 } SDLGame;
 
 typedef struct TimeManager

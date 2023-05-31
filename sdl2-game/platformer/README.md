@@ -41,8 +41,13 @@ _soon_
 5. `SDL_BlitSurface`: copy image from one surface to another
 6. `SDL_Texture`: same like surface, but more powerfull
 7. `SDL_PollEvent`: pull out an event from event stact
-8. **Rendering flow in SDL2** : `SDL_RenderClear` --> `SDL_RenderCopy` --> `SDL_RenderPresent`
-9. To handle gravity : repeatdly add the y-velocity with the gravity constant
+8. **Rendering flow in SDL2** : `SDL_RenderClear` --> `SDL_RenderCopy` --> `SDL_RenderPresent`. The order of textures rendered decide the which texture come on top of another texture.
+9. To handle gravity : repeatly add the y-velocity with the gravity constant
+10. ECS system
+    - **Entity**: object inside the game
+    - **Component**: activity/behaviour that can be attach to an entity
+    - **System**: whole environment of entity + component
+    - **EntityManager**: struct that manage creation, deletion, storing, and managing all of the entities inside the game.
 
 ---
 
@@ -51,6 +56,7 @@ _soon_
 1. https://lazyfoo.net/tutorials/SDL/index2.php
 2. https://wiki.libsdl.org/SDL2/
 3. https://www.parallelrealities.co.uk/tutorials
+4. https://www.youtube.com/playlist?list=PL_xRyXins848nDj2v-TJYahzvs-XW9sVV
 
 ---
 
