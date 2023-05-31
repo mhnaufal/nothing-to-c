@@ -48,6 +48,7 @@ _soon_
     - **Component**: activity/behaviour that can be attach to an entity
     - **System**: whole environment of entity + component
     - **EntityManager**: struct that manage creation, deletion, storing, and managing all of the entities inside the game.
+11. **Iterator Invalidation** : problem that rises when we try to add or remove an entity/object while it is inside a loop/iteration. The solution for this problem is to create a flag that attached to the entity/object.
 
 ---
 

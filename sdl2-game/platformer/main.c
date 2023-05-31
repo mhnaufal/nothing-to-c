@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
     initSDL();
 
     GameState game_state = {true, false, false, false, false, false};
-    SDLGame sdl_game = {NULL, NULL};
+    SDLGame sdl_game = {NULL, NULL, NULL, NULL};
     TimeManager time_manager = {60, 1000 / time_manager.FPS, 0, 0};
 
     initWindow(&sdl_game, "Catty The Cat");
@@ -110,8 +110,11 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
         drawMap(&map1, sdl_game);
         updateEntity(&cat1, new_size);
         drawEntity(sdl_game, &cat1);
+        drawText(sdl_game, "Cat Life: ", 5, 5, 255, 255, 255, 24);
 
-        drawText(sdl_game, "Cat Life: ", WINDOW_WIDTH / 2, 0, 0, 0, 0, 24);
+        char str[2];
+        sprintf(str, "%d", PLAYER_LIFE);
+        drawText(sdl_game, str, 100, 5, 255, 255, 255, 24);
 
         renderTexture(sdl_game);
 
