@@ -27,15 +27,21 @@ bool initSDL()
         is_success = false;
     }
 
-    if (!(IMG_INIT_PNG))
+    if (IMG_Init(IMG_INIT_PNG) < 0)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 Image for PNG: %s]\n", IMG_GetError());
         is_success = false;
     }
 
-    if (!(TTF_Init() < 0))
+    if (TTF_Init() < 0)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 TTF Font: %s]\n", TTF_GetError());
+        is_success = false;
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 mixer audio: %s]\n", Mix_GetError());
         is_success = false;
     }
 
@@ -74,6 +80,7 @@ void cleanUpSDL(SDLGame *p_sdl_game)
     p_sdl_game->renderer = NULL;
     p_sdl_game->window = NULL;
 
+    Mix_Quit();
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -89,6 +96,11 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
     Entity cat1 = initEntity(entity_size, texture1, velo1);
 
     Map map1 = loadMap(sdl_game);
+
+    Mix_Chunk *sound1 = loadSound("./res/audio/audio1.wav");
+    Mix_Music *music1 = loadMusic("./res/audio/horror.mp3");
+
+    playMusic(music1);
 
     SDL_Event event;
 
@@ -111,6 +123,7 @@ void playGame(SDLGame *sdl_game, GameState game_state, TimeManager time_manager)
         updateEntity(&cat1, new_size);
         drawEntity(sdl_game, &cat1);
         drawText(sdl_game, "Cat Life: ", 5, 5, 255, 255, 255, 24);
+        playSound(sound1);
 
         char str[2];
         sprintf(str, "%d", PLAYER_LIFE);
@@ -171,4 +184,44 @@ void drawText(SDLGame *p_sdl_game, const char *p_text, int p_x, int p_y, int p_r
     SDL_FreeSurface(text_surface);
     SDL_RenderCopy(p_sdl_game->renderer, p_sdl_game->texture, NULL, &dst);
     SDL_DestroyTexture(p_sdl_game->texture);
+}
+
+Mix_Chunk *loadSound(const char *p_audio_file)
+{
+    Mix_Chunk *sound = Mix_LoadWAV(p_audio_file);
+    if (!sound)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to load the sound: %s]\n", Mix_GetError());
+    }
+
+    return sound;
+}
+
+Mix_Music *loadMusic(const char *p_audio_file)
+{
+    Mix_Music *music = Mix_LoadMUS(p_audio_file);
+    if (!music)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to load the music: %s]\n", Mix_GetError());
+    }
+
+    return music;
+}
+
+void playSound(Mix_Chunk *p_sound)
+{
+    int play = Mix_PlayChannel(-1, p_sound, 0);
+    if (play != 0)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to play the sound: %s]\n", Mix_GetError());
+    }
+}
+
+void playMusic(Mix_Music *p_music)
+{
+    int play = Mix_PlayMusic(p_music, -1);
+    if (play != 0)
+    {
+        SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to play the music: %s]\n", Mix_GetError());
+    }
 }
