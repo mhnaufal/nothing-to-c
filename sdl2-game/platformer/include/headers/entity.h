@@ -44,7 +44,7 @@ static int PLAYER_LIFE = 9;
 /*    Entity    */
 /****************/
 Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture, Velocity v);
-void drawEntity(GameManager *p_game_manager, Entity *p_entity);
+void drawEntity(GameManager *p_game_manager, Entity *p_entity, size_t p_frame);
 void updateEntity(Entity *p_entity, SDL_FRect p_rect);
 void animateEntity(const char *p_animation_image, int p_animation_length);
 

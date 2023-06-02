@@ -10,9 +10,9 @@ Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture, Velocity v)
     return ent;
 }
 
-void drawEntity(GameManager *p_game_manager, Entity *p_entity)
+void drawEntity(GameManager *p_game_manager, Entity *p_entity, size_t p_frame)
 {
-    SDL_Rect src = {0, 0, p_entity->property->w, p_entity->property->h};
+    SDL_Rect src = {32 * (int)((SDL_GetTicks() / 100) % p_frame), 0, 32, 32};
     SDL_Rect dst = {p_entity->property->x, p_entity->property->y, p_entity->property->w, p_entity->property->h};
 
     SDL_RenderCopy(p_game_manager->renderer, p_entity->texture, &src, &dst);
