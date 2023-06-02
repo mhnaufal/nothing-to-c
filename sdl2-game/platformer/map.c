@@ -1,6 +1,9 @@
 #include <main.h>
 
-Map loadMap(SDLGame *p_sdl_game)
+/*************/
+/*    Map    */
+/*************/
+Map loadMap(GameManager *p_sdl_game)
 {
     Map map;
     map.grass = loadTexture(p_sdl_game, "./res/gfx/dirt.png");
@@ -10,7 +13,7 @@ Map loadMap(SDLGame *p_sdl_game)
     return map;
 }
 
-void drawMap(Map *p_map, SDLGame *p_sdl_game)
+void drawMap(Map *p_map, GameManager *p_sdl_game)
 {
     SDL_Rect src = {0, 0, 32, 32};
     SDL_Rect dst = {0, 0, 32, 32};

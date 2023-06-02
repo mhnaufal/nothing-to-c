@@ -2,7 +2,7 @@ CC = gcc
 C_FLAGS = -Wall -Wextra -pedantic
 SDL_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 SDL_LIBS = -Iinclude -Iinclude/sdl -Iinclude/headers -Llib
-FILES = main.c map.c entity.c
+FILES = main.c map.c entity.c game.c util.c
 .PHONY: all debug run bin clean
 
 all: debug release

@@ -1,14 +1,18 @@
 #pragma once
 
-#include <game.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
-static const int TILE_WIDTH = 20;
-static const int TILE_HEIGHT = 15;
+#include <game.h>
+
+#define TILE_HEIGHT 15
+#define TILE_WIDTH 20
 
 typedef struct Map
 {
@@ -35,5 +39,8 @@ static int level1[TILE_HEIGHT][TILE_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
-Map loadMap(SDLGame *p_sdl_game);
-void drawMap(Map *p_map, SDLGame *p_sdl_game);
+/*************/
+/*    Map    */
+/*************/
+Map loadMap(GameManager *p_sdl_game);
+void drawMap(Map *p_map, GameManager *p_sdl_game);

@@ -1,11 +1,15 @@
 #pragma once
 
-#include <game.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+
+#include <game.h>
 
 typedef struct Velocity
 {
@@ -22,8 +26,15 @@ typedef struct Entity
 
 static int PLAYER_LIFE = 9;
 
+/****************/
+/*    Entity    */
+/****************/
 Entity initEntity(SDL_FRect p_rect, SDL_Texture *p_texture, Velocity v);
-void drawEntity(SDLGame *p_sdl_game, Entity *p_entity);
+void drawEntity(GameManager *p_sdl_game, Entity *p_entity);
 void updateEntity(Entity *p_entity, SDL_FRect p_rect);
-void playerMove(Entity *p_entity, SDL_Event *p_event);
 void animateEntity(const char *p_animation_image, int p_animation_length);
+
+/****************/
+/*    Player    */
+/****************/
+void playerMove(Entity *p_entity, SDL_Event *p_event);

@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -24,13 +25,13 @@ typedef struct GameState
     bool Exit;
 } GameState;
 
-typedef struct SDLGame
+typedef struct GameManager
 {
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Texture *texture;
     TTF_Font *font;
-} SDLGame;
+} GameManager;
 
 typedef struct TimeManager
 {
@@ -39,3 +40,8 @@ typedef struct TimeManager
     Uint32 FRAME_START;
     int FRAME_TIME;
 } TimeManager;
+
+/**************/
+/*    Game    */
+/**************/
+void playGame(GameManager *sdl_game, GameState game_state, TimeManager time_manager);
