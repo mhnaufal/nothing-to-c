@@ -3,17 +3,17 @@
 /*************/
 /*    Map    */
 /*************/
-Map loadMap(GameManager *p_sdl_game)
+Map loadMap(GameManager *p_game_manager)
 {
     Map map;
-    map.grass = loadTexture(p_sdl_game, "./res/gfx/dirt.png");
-    map.rock = loadTexture(p_sdl_game, "./res/gfx/rock.png");
-    map.water = loadTexture(p_sdl_game, "./res/gfx/water.png");
+    map.grass = loadTexture(p_game_manager, "./res/gfx/dirt.png");
+    map.rock = loadTexture(p_game_manager, "./res/gfx/rock.png");
+    map.water = loadTexture(p_game_manager, "./res/gfx/water.png");
 
     return map;
 }
 
-void drawMap(Map *p_map, GameManager *p_sdl_game)
+void drawMap(Map *p_map, GameManager *p_game_manager)
 {
     SDL_Rect src = {0, 0, 32, 32};
     SDL_Rect dst = {0, 0, 32, 32};
@@ -29,13 +29,13 @@ void drawMap(Map *p_map, GameManager *p_sdl_game)
             switch (p_map->tile[i][j])
             {
             case 0:
-                SDL_RenderCopy(p_sdl_game->renderer, p_map->grass, &src, &dst);
+                SDL_RenderCopy(p_game_manager->renderer, p_map->grass, &src, &dst);
                 break;
             case 1:
-                SDL_RenderCopy(p_sdl_game->renderer, p_map->rock, &src, &dst);
+                SDL_RenderCopy(p_game_manager->renderer, p_map->rock, &src, &dst);
                 break;
             case 2:
-                SDL_RenderCopy(p_sdl_game->renderer, p_map->water, &src, &dst);
+                SDL_RenderCopy(p_game_manager->renderer, p_map->water, &src, &dst);
                 break;
             }
         }

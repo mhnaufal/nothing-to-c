@@ -34,19 +34,19 @@ bool initALL(void)
     return is_success;
 }
 
-bool initWindow(GameManager *p_sdl_game, const char *p_title)
+bool initWindow(GameManager *p_game_manager, const char *p_title)
 {
     bool is_success = true;
 
-    p_sdl_game->window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-    if (p_sdl_game->window == NULL)
+    p_game_manager->window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+    if (p_game_manager->window == NULL)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_CRITICAL, "[Failed to init SDL2 window: %s]\n", SDL_GetError());
         is_success = false;
     }
 
-    p_sdl_game->renderer = SDL_CreateRenderer(p_sdl_game->window, -1, SDL_RENDERER_ACCELERATED);
-    if (p_sdl_game->renderer == NULL)
+    p_game_manager->renderer = SDL_CreateRenderer(p_game_manager->window, -1, SDL_RENDERER_ACCELERATED);
+    if (p_game_manager->renderer == NULL)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to init SDL2 renderer: %s]\n", SDL_GetError());
         is_success = false;
@@ -55,16 +55,16 @@ bool initWindow(GameManager *p_sdl_game, const char *p_title)
     return is_success;
 }
 
-void cleanUpSDL(GameManager *p_sdl_game)
+void cleanUpSDL(GameManager *p_game_manager)
 {
-    TTF_CloseFont(p_sdl_game->font);
-    SDL_DestroyTexture(p_sdl_game->texture);
-    SDL_DestroyRenderer(p_sdl_game->renderer);
-    SDL_DestroyWindow(p_sdl_game->window);
+    TTF_CloseFont(p_game_manager->font);
+    SDL_DestroyTexture(p_game_manager->texture);
+    SDL_DestroyRenderer(p_game_manager->renderer);
+    SDL_DestroyWindow(p_game_manager->window);
 
-    p_sdl_game->texture = NULL;
-    p_sdl_game->renderer = NULL;
-    p_sdl_game->window = NULL;
+    p_game_manager->texture = NULL;
+    p_game_manager->renderer = NULL;
+    p_game_manager->window = NULL;
 
     Mix_Quit();
     TTF_Quit();
@@ -75,9 +75,9 @@ void cleanUpSDL(GameManager *p_sdl_game)
 /************/
 /* Renderer */
 /************/
-SDL_Texture *loadTexture(GameManager *p_sdl_game, const char *p_path)
+SDL_Texture *loadTexture(GameManager *p_game_manager, const char *p_path)
 {
-    SDL_Texture *texture = IMG_LoadTexture(p_sdl_game->renderer, p_path);
+    SDL_Texture *texture = IMG_LoadTexture(p_game_manager->renderer, p_path);
     if (texture == NULL)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to load texture: %s]\n", SDL_GetError());
@@ -86,14 +86,14 @@ SDL_Texture *loadTexture(GameManager *p_sdl_game, const char *p_path)
     return texture;
 }
 
-void clearRenderer(GameManager *p_sdl_game)
+void clearRenderer(GameManager *p_game_manager)
 {
-    SDL_RenderClear(p_sdl_game->renderer);
+    SDL_RenderClear(p_game_manager->renderer);
 }
 
-void renderTexture(GameManager *p_sdl_game)
+void renderTexture(GameManager *p_game_manager)
 {
-    SDL_RenderPresent(p_sdl_game->renderer);
+    SDL_RenderPresent(p_game_manager->renderer);
 }
 
 /********/
@@ -110,7 +110,7 @@ TTF_Font *initFont(const char *p_font, int p_size)
     return font;
 }
 
-void drawText(TTF_Font *p_font, GameManager *p_sdl_game, const char *p_text, int p_x, int p_y, int p_r, int p_g, int p_b, int p_a)
+void drawText(TTF_Font *p_font, GameManager *p_game_manager, const char *p_text, int p_x, int p_y, int p_r, int p_g, int p_b, int p_a)
 {
     SDL_Color color = {p_r, p_g, p_b, p_a};
 
@@ -120,12 +120,12 @@ void drawText(TTF_Font *p_font, GameManager *p_sdl_game, const char *p_text, int
         SDL_LogMessage(SDL_LOG_CATEGORY_ERROR, SDL_LOG_PRIORITY_ERROR, "[Failed to render font text: %s]\n", TTF_GetError());
     }
 
-    p_sdl_game->texture = SDL_CreateTextureFromSurface(p_sdl_game->renderer, text_surface);
+    p_game_manager->texture = SDL_CreateTextureFromSurface(p_game_manager->renderer, text_surface);
 
     SDL_Rect dst = {p_x, p_y, text_surface->w, text_surface->h};
     SDL_FreeSurface(text_surface);
-    SDL_RenderCopy(p_sdl_game->renderer, p_sdl_game->texture, NULL, &dst);
-    SDL_DestroyTexture(p_sdl_game->texture);
+    SDL_RenderCopy(p_game_manager->renderer, p_game_manager->texture, NULL, &dst);
+    SDL_DestroyTexture(p_game_manager->texture);
 }
 
 /*********/

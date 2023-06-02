@@ -44,4 +44,4 @@ typedef struct TimeManager
 /**************/
 /*    Game    */
 /**************/
-void playGame(GameManager *sdl_game, GameState game_state, TimeManager time_manager);
+void mainLoop(GameManager *p_game_manager, GameState game_state, TimeManager time_manager);

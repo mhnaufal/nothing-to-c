@@ -13,21 +13,21 @@
 /* Initial Setup */
 /*****************/
 bool initALL(void);
-bool initWindow(GameManager *p_sdl_game, const char *p_title);
-void cleanUpSDL(GameManager *p_sdl_game);
+bool initWindow(GameManager *p_game_manager, const char *p_title);
+void cleanUpSDL(GameManager *p_game_manager);
 
 /************/
 /* Renderer */
 /************/
-SDL_Texture *loadTexture(GameManager *p_sdl_game, const char *p_path);
-void clearRenderer(GameManager *p_sdl_game);
-void renderTexture(GameManager *p_sdl_game);
+SDL_Texture *loadTexture(GameManager *p_game_manager, const char *p_path);
+void clearRenderer(GameManager *p_game_manager);
+void renderTexture(GameManager *p_game_manager);
 
 /********/
 /* Font */
 /********/
 TTF_Font *initFont(const char *p_font, int p_size);
-void drawText(TTF_Font *p_font, GameManager *p_sdl_game, const char *p_text, int p_x, int p_y, int p_r, int p_g, int p_b, int p_a);
+void drawText(TTF_Font *p_font, GameManager *p_game_manager, const char *p_text, int p_x, int p_y, int p_r, int p_g, int p_b, int p_a);
 
 /*********/
 /* Audio */

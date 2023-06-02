@@ -42,5 +42,5 @@ static int level1[TILE_HEIGHT][TILE_WIDTH] = {
 /*************/
 /*    Map    */
 /*************/
-Map loadMap(GameManager *p_sdl_game);
-void drawMap(Map *p_map, GameManager *p_sdl_game);
+Map loadMap(GameManager *p_game_manager);
+void drawMap(Map *p_map, GameManager *p_game_manager);
