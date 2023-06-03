@@ -33,7 +33,7 @@ void mainLoop(GameManager *p_game_manager, GameState game_state, TimeManager tim
             {
                 game_state.Exit = true;
             }
-            playerMove(&cat1, &event);
+            playerMove(p_game_manager, &cat1, &event);
         }
 
         clearRenderer(p_game_manager);
@@ -57,7 +57,7 @@ void mainLoop(GameManager *p_game_manager, GameState game_state, TimeManager tim
         if (time_manager.FRAME_DELAY >= time_manager.FRAME_TIME)
         {
             SDL_Delay(time_manager.FRAME_DELAY - time_manager.FRAME_TIME);
-            // SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", 60 - time_manager.FRAME_TIME);
+            SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "[FPS] %d\n", 60 - time_manager.FRAME_TIME);
         }
     }
 

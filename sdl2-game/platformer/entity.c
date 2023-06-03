@@ -42,17 +42,26 @@ void updateEntity(Entity *p_entity, SDL_FRect p_rect)
 /****************/
 /*    Player    */
 /****************/
-void playerMove(Entity *p_entity, SDL_Event *p_event)
+void playerMove(GameManager *p_game_manager, Entity *p_entity, SDL_Event *p_event)
 {
+    /* TODO: this is a naive way of implementation :( */
     if (p_event->type == SDL_KEYDOWN)
     {
         switch (p_event->key.keysym.sym)
         {
         case SDLK_d:
             p_entity->property->x += 2.5 + p_entity->velocity.x;
+
+            SDL_Texture *texture2 = loadTexture(p_game_manager, "./res/gfx/walk.png");
+            p_entity->texture = texture2;
+
             break;
         case SDLK_a:
             p_entity->property->x -= 2.5 + p_entity->velocity.x;
+
+            texture2 = loadTexture(p_game_manager, "./res/gfx/walk2.png");
+            p_entity->texture = texture2;
+
             break;
         case SDLK_e:
             printf("Interact with object...\n");
@@ -70,6 +79,20 @@ void playerMove(Entity *p_entity, SDL_Event *p_event)
             // p_entity->property->y -= 80;
             p_entity->velocity.y -= 5;
             p_entity->property->y += p_entity->velocity.y;
+            break;
+        case SDLK_d:
+            p_entity->property->x += 2.5 + p_entity->velocity.x;
+
+            SDL_Texture *texture2 = loadTexture(p_game_manager, "./res/gfx/idle.png");
+            p_entity->texture = texture2;
+
+            break;
+        case SDLK_a:
+            p_entity->property->x -= 2.5 + p_entity->velocity.x;
+
+            texture2 = loadTexture(p_game_manager, "./res/gfx/idle.png");
+            p_entity->texture = texture2;
+
             break;
         }
     }

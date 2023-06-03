@@ -29,7 +29,7 @@ typedef struct GameManager
 {
     SDL_Window *window;
     SDL_Renderer *renderer;
-    SDL_Texture *texture;
+    SDL_Texture *texture; // texture should be a dynamic array containing all of the texture
     TTF_Font *font;
 } GameManager;
 

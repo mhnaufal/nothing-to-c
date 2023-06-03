@@ -20,7 +20,7 @@ typedef struct Velocity
 typedef struct Entity
 {
     SDL_FRect *property;
-    SDL_Texture *texture;
+    SDL_Texture *texture; // texture should be a dynamic array containing all of the texture
     Velocity velocity;
 } Entity;
 
@@ -51,4 +51,5 @@ void animateEntity(const char *p_animation_image, int p_animation_length);
 /****************/
 /*    Player    */
 /****************/
-void playerMove(Entity *p_entity, SDL_Event *p_event);
+// void playerMove(Entity *p_entity, SDL_Event *p_event);
+void playerMove(GameManager *p_game_manager, Entity *p_entity, SDL_Event *p_event);
