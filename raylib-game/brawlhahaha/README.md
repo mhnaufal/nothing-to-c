@@ -1,24 +1,42 @@
-# Brawlhahaha
+# Brawlhahaha 🐚
+
+Fight with your life because one strike from the enemy can make you dead!
 
 ## Installation
+
+1. Clone
+2. `make run`
+3. Enjoy!
 
 ---
 
 ## Controls
 
+- `W A S D` : movement and jump
+- `j` : light attack
+- `k` : heavy attack
+- `l` : block
+
 ---
 
 ## Objective
 
----
-
-## Future Works
-
-_soon_
+Win the match!
 
 ---
 
-## What I Learn
+## TODO
+
+1. Move out to individual function
+2. Checking for load texture error
+3. Player animation
+4. Player movement
+5. Game engine model-like
+6. Collision
+
+---
+
+## Notes
 
 ---
 
@@ -31,6 +49,6 @@ _soon_
 
 ---
 
-### Licesne
+### License
 
 Open-source
