@@ -14,6 +14,10 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Vector2 player_position = {(float)500, (float)100};
     float player_velocity = 10;
     float gravity = 2.5;
+    Vector2 attack_box_postiion = {player_position.x, player_position.y};
+    Vector2 attack_box_size = {(float)300, (float)50};
+    bool facing_right = true;
+    Rectangle attack_box = {attack_box_postiion.x, attack_box_postiion.y, attack_box_size.x, attack_box_size.y};
 
     SetTargetFPS(60);
 
@@ -40,10 +44,16 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
             player_position.y = 0;
 
         if (IsKeyDown(KEY_A))
+        {
             player_position.x -= 5.0f;
+            facing_right = false;
+        }
         if (IsKeyDown(KEY_D))
+        {
             player_position.x += 5.0f;
-        if (IsKeyDown(KEY_W))
+            facing_right = true;
+        }
+        if (IsKeyPressed(KEY_W))
         {
             player_velocity = -20.0f;
         }
@@ -57,6 +67,17 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
         else
         {
             player_velocity += gravity;
+        }
+
+        attack_box_postiion.x = player_position.x;
+        attack_box_postiion.y = player_position.y;
+        if (IsKeyPressed(KEY_J) && facing_right)
+        {
+            DrawRectangleV(attack_box_postiion, attack_box_size, BLUE);
+        }
+        if (IsKeyPressed(KEY_J) && !facing_right)
+        {
+            DrawRectangleV((Vector2){attack_box_postiion.x - attack_box_size.x + 100, attack_box_postiion.y}, (Vector2){attack_box_size.x, attack_box_size.y}, GREEN);
         }
         /*  */
 
