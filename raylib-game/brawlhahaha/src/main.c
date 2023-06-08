@@ -12,19 +12,33 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Music music_bg = LoadMusicStream("../assets/audio/war.mp3");
     Sound sound_start = LoadSound("../assets/audio/ready-fight.mp3");
 
+    EntityMap em1;
+    EntityMap em2;
+
     size_t PLAYER_WIDTH = 100;
     size_t PLAYER_HEIGHT = 180;
     ComponentTransform ct1 = {(Vector2){100, 300}, (Vector2){0, 10}};
     Rectangle rt1 = {ct1.position.x, ct1.position.y, PLAYER_WIDTH, PLAYER_HEIGHT};
     CSize cs1 = {PLAYER_WIDTH, PLAYER_HEIGHT};
-    Entity e1 = {"", &cs1, &ct1, &rt1, NULL, NULL};
+    Entity e1 = {"", &cs1, &ct1, &rt1, NULL, {NULL}};
     // e1.funcs.initEntity = initEntity("Player 1", &cs1, &ct1, &rt1, NULL);
+    // em1.name = "Player 1";
+    // em1.entity = e1;
 
     bool facing_right = true;
 
     CSize cs2 = {300, 50};
     ComponentTransform ct2 = {e1.m_transform->position, (Vector2){0, 0}};
-    Entity e2 = {"", &cs2, &ct2, NULL, NULL, NULL};
+    Entity e2 = {"", &cs2, &ct2, NULL, NULL, {NULL}};
+    // em2.name = "Attack Box";
+    // em2.entity = e2;
+
+    /*
+        EntityManager *emg1 = malloc(sizeof(EntityManager) + 100 * sizeof(EntityMap));
+        emg1->total = 2;
+        emg1->entities[0] = em1;
+        emg1->entities[1] = em2;
+    */
 
     SetTargetFPS(60);
 
@@ -69,6 +83,8 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
         DrawFPS(SCREEN_WIDTH - 100, 10);
         EndDrawing();
     }
+
+    // free(emg1);
 
     UnloadMusicStream(music_bg);
     UnloadSound(sound_start);

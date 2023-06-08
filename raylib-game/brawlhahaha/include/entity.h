@@ -27,6 +27,18 @@ typedef struct Entity
     } funcs;
 } Entity;
 
+typedef struct EntityMap
+{
+    char *name;
+    Entity entity;
+} EntityMap;
+
+typedef struct EntityManager
+{
+    size_t total;
+    EntityMap entities[];
+} EntityManager;
+
 Entity *initEntity(const char *name, CSize *size, ComponentTransform *transform, Rectangle *rectangle, Texture2D *texture);
 
 void playerMovement(Entity *entity, bool *facing);
