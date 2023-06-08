@@ -1,3 +1,5 @@
+#pragma once
+
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -9,23 +11,24 @@
 #include <raylib/raymath.h>
 #include <raylib/rlgl.h>
 
-typedef struct ComponentTransform
-{
-    Vector2 position;
-    Vector2 velocity;
-} ComponentTransform;
+#include <util.h>
 
 typedef struct Entity
 {
     char *m_name;
+    CSize *m_size;
     ComponentTransform *m_transform;
     Rectangle *m_shape;
     Texture2D *m_texture;
 
     struct funcs
     {
-        struct Entity *(*init_entity)(const char *name, ComponentTransform *transform, Rectangle *rectangle, Texture2D *texture);
+        struct Entity *(*initEntity)(const char *name, CSize *size, ComponentTransform *transform, Rectangle *rectangle, Texture2D *texture);
     } funcs;
 } Entity;
 
-Entity *init_entity(const char *name, ComponentTransform *transform, Rectangle *rectangle, Texture2D *texture);
+Entity *initEntity(const char *name, CSize *size, ComponentTransform *transform, Rectangle *rectangle, Texture2D *texture);
+
+void playerMovement(Entity *entity, bool *facing);
+void checkAreaCollision(Entity *entity);
+void checkGravity(Entity *entity);

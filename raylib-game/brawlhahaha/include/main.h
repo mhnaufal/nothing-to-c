@@ -1,3 +1,5 @@
+#pragma once
+
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -10,3 +12,4 @@
 #include <raylib/rlgl.h>
 
 #include <entity.h>
+#include <util.h>
