@@ -17,6 +17,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     EntityMap em1;
     EntityMap em2;
 
+    // Player 1
     size_t PLAYER_WIDTH = 100;
     size_t PLAYER_HEIGHT = 180;
     ComponentTransform ct1 = {(Vector2){100, 300}, (Vector2){0, 10}};
@@ -34,6 +35,16 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Entity e2 = {"", &cs2, &ct2, NULL, NULL, {NULL}};
     // em2.name = "Attack Box";
     // em2.entity = e2;
+
+    // Player 2
+    ComponentTransform ct3 = {(Vector2){500, 300}, (Vector2){0, 10}};
+    Rectangle rt3 = {ct3.position.x, ct3.position.y, PLAYER_WIDTH, PLAYER_HEIGHT};
+    CSize cs3 = {PLAYER_WIDTH, PLAYER_HEIGHT};
+    Entity e3 = {"", &cs3, &ct3, &rt3, NULL, {NULL}};
+    bool facing_right_3 = true;
+    CSize cs4 = {300, 50};
+    ComponentTransform ct4 = {e3.m_transform->position, (Vector2){0, 0}};
+    Entity e4 = {"", &cs4, &ct4, NULL, NULL, {NULL}};
 
     /*
         EntityManager *emg1 = malloc(sizeof(EntityManager) + 100 * sizeof(EntityMap));
@@ -71,39 +82,46 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 
         /* Collision */
         checkAreaCollision(&e1);
+        checkAreaCollision(&e3);
 
         /* Movement */
         playerMovement(&e1, &facing_right);
+        playerMovement2(&e3, &facing_right_3);
 
         /* Gravity */
         e1.m_transform->position.y += e1.m_transform->velocity.y;
         checkGravity(&e1);
 
+        e3.m_transform->position.y += e3.m_transform->velocity.y;
+        checkGravity(&e3);
+
         /* Player Action */
         e2.m_transform->position = e1.m_transform->position;
+        e4.m_transform->position = e3.m_transform->position;
 
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawTextureEx(background, (Vector2){0, 0}, 0.0f, 1.0f, WHITE);
+            ClearBackground(RAYWHITE);
+            DrawTextureEx(background, (Vector2){0, 0}, 0.0f, 1.0f, WHITE);
 
-        drawTile(&tile);
-        DrawRectangleV(e1.m_transform->position, (Vector2){e1.m_size->width, e1.m_size->height}, RED);
+            drawTile(&tile);
+            DrawRectangleV(e1.m_transform->position, (Vector2){e1.m_size->width, e1.m_size->height}, RED);
+            DrawRectangleV(e3.m_transform->position, (Vector2){e3.m_size->width, e3.m_size->height}, BLUE);
 
-        if (IsKeyPressed(KEY_J) && facing_right)
-        {
-            DrawRectangleV(e2.m_transform->position, (Vector2){e2.m_size->width, e2.m_size->height}, BLUE);
-        }
-        if (IsKeyPressed(KEY_J) && !facing_right)
-        {
-            DrawRectangleV((Vector2){e2.m_transform->position.x - e2.m_size->width + e1.m_size->width, e2.m_transform->position.y}, (Vector2){e2.m_size->width, e2.m_size->height}, GREEN);
-        }
+            if (IsKeyPressed(KEY_ONE) && facing_right)
+            {
+                DrawRectangleV(e2.m_transform->position, (Vector2){e2.m_size->width, e2.m_size->height}, BLUE);
+            }
+            if (IsKeyPressed(KEY_ONE) && !facing_right)
+            {
+                DrawRectangleV((Vector2){e2.m_transform->position.x - e2.m_size->width + e1.m_size->width, e2.m_transform->position.y}, (Vector2){e2.m_size->width, e2.m_size->height}, GREEN);
+            }
 
-        DrawRectangleRec(base_health1, YELLOW);
-        DrawRectangleRec(health1, RED);
-        DrawRectangleRec(base_health2, GREEN);
-        DrawRectangleRec(health2, BLUE);
-        DrawText("Brawlhahaha", SCREEN_WIDTH / 2 - 100, 10, 40, WHITE);
-        DrawFPS(SCREEN_WIDTH - 100, 10);
+            DrawRectangleRec(base_health1, YELLOW);
+            DrawRectangleRec(health1, RED);
+            DrawRectangleRec(base_health2, GREEN);
+            DrawRectangleRec(health2, BLUE);
+            DrawText("Brawlhahaha", SCREEN_WIDTH / 2 - 100, 10, 40, WHITE);
+            DrawFPS(SCREEN_WIDTH - 100, 10);
         EndDrawing();
     }
 

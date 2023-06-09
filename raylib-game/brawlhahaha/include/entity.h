@@ -42,5 +42,6 @@ typedef struct EntityManager
 Entity *initEntity(const char *name, CSize *size, ComponentTransform *transform, Rectangle *rectangle, Texture2D *texture);
 
 void playerMovement(Entity *entity, bool *facing);
+void playerMovement2(Entity *entity, bool *facing);
 void checkAreaCollision(Entity *entity);
 void checkGravity(Entity *entity);

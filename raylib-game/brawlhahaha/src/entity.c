@@ -23,6 +23,24 @@ void playerMovement(Entity *entity, bool *facing)
     }
 }
 
+void playerMovement2(Entity *entity, bool *facing)
+{
+    if (IsKeyDown(KEY_J))
+    {
+        entity->m_transform->position.x -= 5.0f;
+        *facing = false;
+    }
+    if (IsKeyDown(KEY_L))
+    {
+        entity->m_transform->position.x += 5.0f;
+        *facing = true;
+    }
+    if (IsKeyPressed(KEY_I))
+    {
+        entity->m_transform->velocity.y = -20.0f;
+    }
+}
+
 void checkAreaCollision(Entity *entity)
 {
     if (entity->m_transform->position.x <= 0)
