@@ -12,5 +12,3 @@
 #include <raylib/rlgl.h>
 
 #include <util.h>
-
-void drawTile(Texture2D *tile);
