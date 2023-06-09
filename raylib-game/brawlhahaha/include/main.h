@@ -8,8 +8,7 @@
 #include <time.h>
 
 #include <raylib/raylib.h>
-#include <raylib/raymath.h>
-#include <raylib/rlgl.h>
 
 #include <entity.h>
+#include <game.h>
 #include <util.h>

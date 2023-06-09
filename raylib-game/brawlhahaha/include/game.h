@@ -8,7 +8,19 @@
 #include <time.h>
 
 #include <raylib/raylib.h>
-#include <raylib/raymath.h>
-#include <raylib/rlgl.h>
 
-#include <util.h>
+typedef struct Scene
+{
+    bool paused;
+} Scene;
+
+typedef struct GameManager
+{
+    EntityManager *entity_manager;   
+
+} GameManager;
+
+bool initObjects(void);
+void gameLoop(GameManager *game_manager);
+GameManager initGameManager(void);
+void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager entity_manager);
