@@ -37,11 +37,11 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     // em2.entity = e2;
 
     // Player 2
-    ComponentTransform ct3 = {(Vector2){500, 300}, (Vector2){0, 10}};
+    ComponentTransform ct3 = {(Vector2){1300, 300}, (Vector2){0, 10}};
     Rectangle rt3 = {ct3.position.x, ct3.position.y, PLAYER_WIDTH, PLAYER_HEIGHT};
     CSize cs3 = {PLAYER_WIDTH, PLAYER_HEIGHT};
     Entity e3 = {"", &cs3, &ct3, &rt3, NULL, {NULL}};
-    bool facing_right_3 = true;
+    bool facing_right_3 = false;
     CSize cs4 = {300, 50};
     ComponentTransform ct4 = {e3.m_transform->position, (Vector2){0, 0}};
     Entity e4 = {"", &cs4, &ct4, NULL, NULL, {NULL}};
@@ -104,18 +104,18 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
             DrawTextureEx(background, (Vector2){0, 0}, 0.0f, 1.0f, WHITE);
 
             drawTile(&tile);
+
+            /* Draw Player */
             DrawRectangleV(e1.m_transform->position, (Vector2){e1.m_size->width, e1.m_size->height}, RED);
             DrawRectangleV(e3.m_transform->position, (Vector2){e3.m_size->width, e3.m_size->height}, BLUE);
 
-            if (IsKeyPressed(KEY_ONE) && facing_right)
-            {
-                DrawRectangleV(e2.m_transform->position, (Vector2){e2.m_size->width, e2.m_size->height}, BLUE);
-            }
-            if (IsKeyPressed(KEY_ONE) && !facing_right)
-            {
-                DrawRectangleV((Vector2){e2.m_transform->position.x - e2.m_size->width + e1.m_size->width, e2.m_transform->position.y}, (Vector2){e2.m_size->width, e2.m_size->height}, GREEN);
-            }
+            /* Player 1 Action */
+            playerAction(&e1, &e2 , facing_right);
 
+            /* Player 2 Action */
+            playerAction2(&e3, &e4,  facing_right_3);
+
+            /* Draw Health Bar */
             DrawRectangleRec(base_health1, YELLOW);
             DrawRectangleRec(health1, RED);
             DrawRectangleRec(base_health2, GREEN);

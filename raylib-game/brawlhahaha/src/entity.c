@@ -62,3 +62,27 @@ void checkGravity(Entity *entity)
         entity->m_transform->velocity.y += GRAVITY;
     }
 }
+
+void playerAction(Entity *player, Entity *attack, bool facing_right)
+{
+    // if (IsKeyPressed(KEY_THREE) && facing_right)
+    // {
+        DrawRectangleV(attack->m_transform->position, (Vector2){attack->m_size->width, attack->m_size->height}, DARKPURPLE);
+    // }
+    // if (IsKeyPressed(KEY_THREE) && !facing_right)
+    // {
+        DrawRectangleV((Vector2){attack->m_transform->position.x - attack->m_size->width + player->m_size->width, attack->m_transform->position.y}, (Vector2){attack->m_size->width, attack->m_size->height}, GREEN);
+    // }
+}
+
+void playerAction2(Entity *player, Entity *attack, bool facing_right)
+{
+    // if (IsKeyPressed(KEY_NINE) && facing_right)
+    // {
+        DrawRectangleV(attack->m_transform->position, (Vector2){attack->m_size->width, attack->m_size->height}, YELLOW);
+    // }
+    // if (IsKeyPressed(KEY_NINE) && !facing_right)
+    // {
+        DrawRectangleV((Vector2){attack->m_transform->position.x - attack->m_size->width + player->m_size->width, attack->m_transform->position.y}, (Vector2){attack->m_size->width, attack->m_size->height}, ORANGE);
+    // }
+}

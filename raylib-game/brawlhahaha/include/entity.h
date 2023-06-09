@@ -45,3 +45,5 @@ void playerMovement(Entity *entity, bool *facing);
 void playerMovement2(Entity *entity, bool *facing);
 void checkAreaCollision(Entity *entity);
 void checkGravity(Entity *entity);
+void playerAction(Entity *player, Entity *attack, bool facing_right);
+void playerAction2(Entity *player, Entity *attack, bool facing_right);
