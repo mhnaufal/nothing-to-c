@@ -9,6 +9,8 @@
 
 #include <raylib/raylib.h>
 
+static const int MAX_ENTITY = 20;
+
 typedef struct Entity
 {
     char *m_name;
@@ -20,9 +22,10 @@ typedef struct Entity
 typedef struct EntityManager
 {
     int total;
-    Entity m_entities[20];
+    Entity m_entities[MAX_ENTITY];
 } EntityManager;
 
 Entity initEntity(char *name, char *texture_file, Vector2 position, Vector2 size);
 EntityManager initEntityManager(void);
-bool addEntity(EntityManager *em, Entity *e);
+int addEntity(EntityManager *em, Entity *e);
+bool deleteEntity(EntityManager *em, int id);

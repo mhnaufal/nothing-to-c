@@ -9,9 +9,10 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 
     Vector2 player1_position = {100, 300};
     Vector2 player1_size = {180, 300};
-    Entity player1 = initEntity("Player 1", "../assets/img/sprite/warrior/idle.png", player1_position, player1_size);
+    Entity player1 = initEntity("Player 1", "../assets/img/sprite/ronin/idle.png", player1_position, player1_size);
     addEntity(&entity_manager, &player1);
-    connectEntityManagerToGameManager(&game_manager, entity_manager); // only called once
+
+    connectEntityManagerToGameManager(&game_manager, entity_manager); // only called once and last one after all entity already added or deleted
 
     gameLoop(&game_manager);
 

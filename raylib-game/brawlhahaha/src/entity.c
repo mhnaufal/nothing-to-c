@@ -22,11 +22,27 @@ EntityManager initEntityManager(void)
     return em;
 }
 
-bool addEntity(EntityManager *em, Entity *e)
+int addEntity(EntityManager *em, Entity *e)
 {
-    // TODO: check edge cases
+    /*
+    Can't handle case when there is an empty block between two filledin block.
+    To much headcache to be handled without vector or map
+    */
+    if (em->total >= MAX_ENTITY)
+    {
+        TraceLog(LOG_ERROR, "Can't add more entity!\n");
+        return 0;
+    }
     em->m_entities[em->total + 1] = *e;
     em->total++;
+
+    return em->total;
+}
+
+bool deleteEntity(EntityManager *em, int id)
+{
+    em->m_entities[id] = (Entity){"", 0, 0, 0};
+    em->total--;
 
     return true;
 }

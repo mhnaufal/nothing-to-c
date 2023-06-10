@@ -24,3 +24,4 @@ bool initObjects(void);
 void gameLoop(GameManager *game_manager);
 GameManager initGameManager(void);
 void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager entity_manager);
+void renderAll(GameManager *game_manager);
