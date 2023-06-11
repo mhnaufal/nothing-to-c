@@ -54,7 +54,6 @@ void player1Movement(GameManager *gm)
     {
         gm->entity_manager->m_entities[1].m_position.x += 5.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[2];
-        printf_s("%d", gm->texture_manager->m_textures[2].id);
     }
     if (IsKeyDown(KEY_A))
     {
