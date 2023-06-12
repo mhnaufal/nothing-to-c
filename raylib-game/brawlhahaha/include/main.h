@@ -50,7 +50,7 @@ typedef struct EntityManager
 [0] : Genesis
 [1] : Player 1 Idle
 [2] : Player 1 Run
-[3] : Player 1 Jump
+[3] : Background
 [4] : Player 1 Attack
 */
 typedef struct TextureManager

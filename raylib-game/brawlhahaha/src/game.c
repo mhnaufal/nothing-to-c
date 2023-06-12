@@ -32,6 +32,8 @@ void renderAll(GameManager *game_manager)
 {
     ClearBackground(RAYWHITE);
 
+    DrawTextureEx(game_manager->texture_manager->m_textures[3], (Vector2){0, 0,}, 0.0f, 1.0f, WHITE);
+
     Entity player1 = game_manager->entity_manager->m_entities[1];
 
     DrawTexturePro(
