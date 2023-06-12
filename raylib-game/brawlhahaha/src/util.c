@@ -40,8 +40,3 @@ int addTexture(TextureManager *texture_manager, Texture2D texture)
 
     return texture_manager->total;
 }
-
-void connectTextureManagerToGameManager(GameManager *game_manager, TextureManager texture_manager)
-{
-    game_manager->texture_manager = &texture_manager;
-}

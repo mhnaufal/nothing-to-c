@@ -8,6 +8,7 @@ void gameLoop(GameManager *game_manager)
         player1Movement(game_manager);
 
         BeginDrawing();
+            updateALL(game_manager);
             renderAll(game_manager);
         EndDrawing();
     }
@@ -40,4 +41,24 @@ void renderAll(GameManager *game_manager)
         (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
         0,
         WHITE);
+}
+
+void updateALL(GameManager *game_manager)
+{
+    /*
+    Turn value into pointer
+    https://stackoverflow.com/questions/2094666/pointers-in-c-when-to-use-the-ampersand-and-the-asterisk
+    */
+    Entity *player1 = &game_manager->entity_manager->m_entities[1];
+
+    /* Player Gravity */
+    player1->m_position.y += player1->m_velocity.y;
+    if (player1->m_position.y + player1->m_size.y + player1->m_velocity.y >= SCREEN_HEIGHT - SPRITE_HEIGHT)
+    {
+        player1->m_velocity.y = 0;
+    }
+    else
+    {
+        player1->m_velocity.y += GRAVITY;
+    }
 }

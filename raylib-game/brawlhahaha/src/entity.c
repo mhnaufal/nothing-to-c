@@ -7,6 +7,7 @@ Entity initEntity(char *name, TextureManager texture_manager, int texture_id, Ve
     e.m_texture = texture_manager.m_textures[texture_id];
     e.m_position = position;
     e.m_size = size;
+    e.m_velocity = (Vector2){0, 0};
 
     return e;
 }
@@ -57,6 +58,10 @@ void player1Movement(GameManager *gm)
     {
         gm->entity_manager->m_entities[1].m_position.x -= 5.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[2];
+    }
+    if (IsKeyPressed(KEY_W))
+    {
+        gm->entity_manager->m_entities[1].m_velocity.y = -50.0f;
     }
     else
     {
