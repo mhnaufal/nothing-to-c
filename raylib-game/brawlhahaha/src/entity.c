@@ -48,16 +48,18 @@ bool deleteEntity(EntityManager *em, int id)
 
 void player1Movement(GameManager *gm)
 {
-    gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[1];
-
     if (IsKeyDown(KEY_D))
     {
         gm->entity_manager->m_entities[1].m_position.x += 5.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[2];
     }
-    if (IsKeyDown(KEY_A))
+    else if (IsKeyDown(KEY_A))
     {
         gm->entity_manager->m_entities[1].m_position.x -= 5.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[2];
+    }
+    else
+    {
+        gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[1];
     }
 }

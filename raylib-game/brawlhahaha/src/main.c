@@ -2,9 +2,9 @@
 
 int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 {
+
     initALL();
 
-    GameManager game_manager = initGameManager();
     EntityManager entity_manager = initEntityManager();
     TextureManager texture_manager = initTextureManager();
 
@@ -17,11 +17,9 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     addTexture(&texture_manager, player1_run);
 
     Entity player1 = initEntity("Player 1", texture_manager, 1, player1_position, player1_size);
-
     addEntity(&entity_manager, &player1);
 
-    connectEntityManagerToGameManager(&game_manager, entity_manager); // only called once and last one after all entity already added or deleted
-    connectTextureManagerToGameManager(&game_manager, texture_manager);
+    GameManager game_manager = initGameManager(entity_manager, texture_manager); // only called once, after all other managers ready
 
     gameLoop(&game_manager);
 

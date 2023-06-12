@@ -17,13 +17,14 @@ static const float GRAVITY = 2.5;
 static const int SPRITE_WIDHT = 64;
 static const int SPRITE_HEIGHT = 64;
 
-static const int MAX_ENTITY = 20;
-static const int MAX_TEXTURE = 20;
-
-/* EntityManager Table List
-[0] : Genesis
-[1] : Player 1
-*/
+enum
+{
+    MAX_ENTITY = 20
+};
+enum
+{
+    MAX_TEXTURE = 20
+};
 
 typedef struct Entity
 {
@@ -33,12 +34,24 @@ typedef struct Entity
     Vector2 m_size;
 } Entity;
 
+/* EntityManager Table List
+[0] : Genesis
+[1] : Player 1
+*/
+
 typedef struct EntityManager
 {
     int total;
     Entity m_entities[MAX_ENTITY];
 } EntityManager;
 
+/* TextureManager Table List
+[0] : Genesis
+[1] : Player 1 Idle
+[2] : Player 1 Run
+[3] : Player 1 Jump
+[4] : Player 1 Attack
+*/
 typedef struct TextureManager
 {
     int total;
@@ -56,7 +69,6 @@ typedef struct GameManager
     TextureManager *texture_manager;
 } GameManager;
 
-
 Entity initEntity(char *name, TextureManager texture_manager, int texture_id, Vector2 position, Vector2 size);
 EntityManager initEntityManager(void);
 int addEntity(EntityManager *em, Entity *e);
@@ -68,12 +80,8 @@ void closeALL(GameManager *game_manager);
 Texture2D loadTexture2D(char *filename, TextureManager *texture_manager);
 TextureManager initTextureManager();
 int addTexture(TextureManager *texture_manager, Texture2D texture);
-void connectTextureManagerToGameManager(GameManager *game_manager, TextureManager texture_manager);
 
-
-
-bool initObjects(void);
 void gameLoop(GameManager *game_manager);
-GameManager initGameManager(void);
-void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager entity_manager);
+GameManager initGameManager(EntityManager em, TextureManager tm);
+void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager entity_manager, TextureManager texture_manager);
 void renderAll(GameManager *game_manager);

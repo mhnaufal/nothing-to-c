@@ -13,15 +13,18 @@ void gameLoop(GameManager *game_manager)
     }
 }
 
-GameManager initGameManager(void)
+GameManager initGameManager(EntityManager em, TextureManager tm)
 {
     GameManager gm;
+    gm.entity_manager = &em;
+    gm.texture_manager = &tm;
     return gm;
 }
 
-void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager entity_manager)
+void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager entity_manager, TextureManager texture_manager)
 {
     game_manager->entity_manager = &entity_manager;
+    game_manager->texture_manager = &texture_manager;
 }
 
 void renderAll(GameManager *game_manager)
@@ -36,6 +39,5 @@ void renderAll(GameManager *game_manager)
         (Rectangle){player1.m_position.x, player1.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
         (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
         0,
-        WHITE
-    );
+        WHITE);
 }

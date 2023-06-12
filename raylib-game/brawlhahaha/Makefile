@@ -1,5 +1,5 @@
 CC = gcc
-C_FLAGS = -Wall -Wextra -pedantic -std=c17 -m64
+C_FLAGS = -Wall -Wextra -pedantic -std=c11 -m64
 RAYLIB_FLAGS = -lmingw32 -lraylib -lopengl32 -lgdi32 -lwinmm
 RAYLIB_LIBS = -Iinclude -Iinclude/raylib -Llib
 FILES = ./src/main.c ./src/entity.c ./src/game.c ./src/util.c # we define the files manually to prevent VSCode to being a FUCKED UP code editor
