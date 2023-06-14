@@ -2,7 +2,6 @@
 
 int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 {
-
     initALL();
 
     EntityManager entity_manager = initEntityManager();
@@ -14,9 +13,11 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Texture2D player1_idle = loadTexture2D("../assets/img/sprite/ronin/idle.png", &texture_manager);
     Texture2D player1_run = loadTexture2D("../assets/img/sprite/ronin/run.png", &texture_manager);
     Texture2D background = loadTexture2D("../assets/img/background/moon.png", &texture_manager);
+    Texture2D player1_jump = loadTexture2D("../assets/img/sprite/ronin/jump.png", &texture_manager);
     addTexture(&texture_manager, player1_idle);
     addTexture(&texture_manager, player1_run);
     addTexture(&texture_manager, background);
+    addTexture(&texture_manager, player1_jump);
 
     Entity player1 = initEntity("Player 1", texture_manager, 1, player1_position, player1_size);
     addEntity(&entity_manager, &player1);
