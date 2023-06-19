@@ -4,7 +4,7 @@ void gameLoop(GameManager *game_manager)
 {
     while (!WindowShouldClose())
     {
-        player1Movement(game_manager);
+        player1Actions(game_manager);
 
         BeginDrawing();
             updateALL(game_manager);
@@ -37,7 +37,7 @@ void renderAll(GameManager *game_manager)
 
     DrawTexturePro(
         player1.m_texture,
-        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 100) % 8), 0, SPRITE_WIDHT, SPRITE_HEIGHT},
+        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 150) % 10), 0, SPRITE_WIDHT, SPRITE_HEIGHT},
         (Rectangle){player1.m_position.x, player1.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
         (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
         0,
@@ -56,6 +56,11 @@ void updateALL(GameManager *game_manager)
     player1->m_position.y += player1->m_velocity.y;
     if (player1->m_position.y + player1->m_size.y + player1->m_velocity.y >= SCREEN_HEIGHT - SPRITE_HEIGHT)
     {
+        player1->m_velocity.y = 0;
+    }
+    else if (player1->m_position.y < 50)
+    {
+        player1->m_position.y = 50;
         player1->m_velocity.y = 0;
     }
     else

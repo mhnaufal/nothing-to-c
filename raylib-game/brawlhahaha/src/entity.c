@@ -47,11 +47,11 @@ bool deleteEntity(EntityManager *em, int id)
     return true;
 }
 
-void player1Movement(GameManager *gm)
+void player1Actions(GameManager *gm)
 {
     if (IsKeyPressed(KEY_W))
     {
-        gm->entity_manager->m_entities[1].m_velocity.y = -50.0f;
+        gm->entity_manager->m_entities[1].m_velocity.y = -35.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[4];
     }
     else if (IsKeyDown(KEY_D))
@@ -63,6 +63,10 @@ void player1Movement(GameManager *gm)
     {
         gm->entity_manager->m_entities[1].m_position.x -= 5.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[2];
+    }
+    else if (IsKeyDown(KEY_V)) // prevent attack while moving
+    {
+        gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[5];
     }
     else
     {
