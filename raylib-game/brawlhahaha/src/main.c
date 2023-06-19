@@ -28,6 +28,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 
     gameLoop(&game_manager);
 
+    freeALL(&game_manager);
     closeALL(&game_manager);
 
     return 0;

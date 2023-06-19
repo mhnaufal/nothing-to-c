@@ -88,3 +88,5 @@ void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager 
 void renderAll(GameManager *game_manager);
 
 void updateALL(GameManager *game_manager);
+
+void freeALL(GameManager *game_manager);

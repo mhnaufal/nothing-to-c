@@ -40,3 +40,12 @@ int addTexture(TextureManager *texture_manager, Texture2D texture)
 
     return texture_manager->total;
 }
+
+void freeALL(GameManager *game_manager)
+{
+    for (int i = 0; i < game_manager->texture_manager->total; i++)
+    {
+        deleteEntity(game_manager->entity_manager, i);
+        UnloadTexture(game_manager->texture_manager->m_textures[i]);
+    }
+}
