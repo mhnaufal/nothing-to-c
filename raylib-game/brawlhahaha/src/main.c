@@ -11,8 +11,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 
     Vector2 player1_position = {100, 300};
     Vector2 player1_size = {180, 300};
-
-    Texture2D player1_idle = loadTexture2D("../assets/img/sprite/ronin/idle.png");
+    Texture2D player1_idle = loadTexture2D("../assets/img/sprite/ronin/idle.png"); // 1
     Texture2D player1_run = loadTexture2D("../assets/img/sprite/ronin/run.png");
     Texture2D background = loadTexture2D("../assets/img/background/moon.png");
     Texture2D player1_jump = loadTexture2D("../assets/img/sprite/ronin/jump.png");
@@ -22,9 +21,15 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     addTexture(&texture_manager, background);
     addTexture(&texture_manager, player1_jump);
     addTexture(&texture_manager, player1_attack);
-
     Entity player1 = initEntity("Player 1", texture_manager, 1, player1_position, player1_size);
-    addEntity(&entity_manager, &player1);
+    addEntity(&entity_manager, &player1); // 1
+
+    Vector2 player2_position = {800, 300};
+    Vector2 player2_size = {180, 300};
+    Texture2D player2_idle = loadTexture2D("../assets/img/sprite/nomad/idle.png"); // 6
+    addTexture(&texture_manager, player2_idle);
+    Entity player2 = initEntity("Player 2", texture_manager, 6, player2_position, player2_size);
+    addEntity(&entity_manager, &player2); // 2
 
     Music music_bg = LoadMusicStream("../assets/audio/battle.mp3");
     Sound sound_slash = LoadSound("../assets/audio/slash.mp3");

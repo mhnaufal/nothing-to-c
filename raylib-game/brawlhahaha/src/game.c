@@ -42,8 +42,9 @@ void updateALL(GameManager *game_manager)
     https://stackoverflow.com/questions/2094666/pointers-in-c-when-to-use-the-ampersand-and-the-asterisk
     */
     Entity *player1 = &game_manager->entity_manager->m_entities[1];
+    Entity *player2 = &game_manager->entity_manager->m_entities[2];
 
-    /* Player Gravity */
+    /* Player 1 Gravity */
     player1->m_position.y += player1->m_velocity.y;
     if (player1->m_position.y + player1->m_size.y + player1->m_velocity.y >= SCREEN_HEIGHT - SPRITE_HEIGHT)
     {
@@ -58,6 +59,22 @@ void updateALL(GameManager *game_manager)
     {
         player1->m_velocity.y += GRAVITY;
     }
+
+    /* Player 2 Gravity */
+    player2->m_position.y += player2->m_velocity.y;
+    if (player2->m_position.y + player2->m_size.y + player2->m_velocity.y >= SCREEN_HEIGHT - SPRITE_HEIGHT)
+    {
+        player2->m_velocity.y = 0;
+    }
+    else if (player2->m_position.y < 50)
+    {
+        player2->m_position.y = 50;
+        player2->m_velocity.y = 0;
+    }
+    else
+    {
+        player2->m_velocity.y += GRAVITY;
+    }
 }
 
 void renderAll(GameManager *game_manager)
@@ -71,11 +88,20 @@ void renderAll(GameManager *game_manager)
                   0.0f, 1.0f, WHITE);
 
     Entity player1 = game_manager->entity_manager->m_entities[1];
+    Entity player2 = game_manager->entity_manager->m_entities[2];
 
     DrawTexturePro(
         player1.m_texture,
         (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 150) % 10), 0, SPRITE_WIDHT, SPRITE_HEIGHT},
         (Rectangle){player1.m_position.x, player1.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
+        (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
+        0,
+        WHITE);
+
+    DrawTexturePro(
+        player2.m_texture,
+        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 150) % 10), 0, -SPRITE_WIDHT, SPRITE_HEIGHT},
+        (Rectangle){player2.m_position.x, player2.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
         (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
         0,
         WHITE);
