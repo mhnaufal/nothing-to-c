@@ -25,18 +25,21 @@ typedef struct GameManager
 {
     EntityManager *entity_manager;
     TextureManager *texture_manager;
+    AudioManager *audio_manager;
 } GameManager;
 
 /*************/
 /* Functions */
 /*************/
-GameManager initGameManager(EntityManager em, TextureManager tm);
+GameManager initGameManager(EntityManager em, TextureManager tm, AudioManager am);
 void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager *entity_manager, TextureManager *texture_manager);
 
 void gameLoop(GameManager *game_manager);
 void updateALL(GameManager *game_manager);
 void renderAll(GameManager *game_manager);
 void closeALL(GameManager *game_manager);
-void freeALL(GameManager *game_manager);
 
 void player1Actions(GameManager *gm);
+
+void playMusic(AudioManager *am, int index);
+void playSound(AudioManager *am, int index);

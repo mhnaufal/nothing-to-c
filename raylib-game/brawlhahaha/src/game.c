@@ -3,11 +3,12 @@
 /***********/
 /* Game */
 /***********/
-GameManager initGameManager(EntityManager em, TextureManager tm)
+GameManager initGameManager(EntityManager em, TextureManager tm, AudioManager am)
 {
     GameManager gm;
     gm.entity_manager = &em;
     gm.texture_manager = &tm;
+    gm.audio_manager = &am;
     return gm;
 }
 
@@ -19,19 +20,23 @@ void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager 
 
 void gameLoop(GameManager *game_manager)
 {
+    playSound(game_manager->audio_manager, 3);
+
     while (!WindowShouldClose())
     {
         player1Actions(game_manager);
 
         BeginDrawing();
-        updateALL(game_manager);
-        renderAll(game_manager);
+            updateALL(game_manager);
+            renderAll(game_manager);
         EndDrawing();
     }
 }
 
 void updateALL(GameManager *game_manager)
 {
+    playMusic(game_manager->audio_manager, 1);
+
     /*
     Turn value into pointer
     https://stackoverflow.com/questions/2094666/pointers-in-c-when-to-use-the-ampersand-and-the-asterisk
@@ -78,22 +83,25 @@ void renderAll(GameManager *game_manager)
 
 void closeALL(GameManager *game_manager)
 {
-    for (int i = 0; i < game_manager->entity_manager->total; i++)
-    {
-        UnloadTexture(game_manager->entity_manager->m_entities[i].m_texture);
-    }
-
-    CloseAudioDevice();
-    CloseWindow();
-}
-
-void freeALL(GameManager *game_manager)
-{
-    for (int i = 0; i < game_manager->texture_manager->total; i++)
+    for (int i = 0; i < game_manager->texture_manager->m_total; i++)
     {
         deleteEntity(game_manager->entity_manager, i);
         UnloadTexture(game_manager->texture_manager->m_textures[i]);
     }
+
+    for (int i = 0; i < game_manager->entity_manager->m_total; i++)
+    {
+        UnloadTexture(game_manager->entity_manager->m_entities[i].m_texture);
+    }
+
+    for (int i = 0; i < game_manager->audio_manager->m_total; i++)
+    {
+        UnloadMusicStream(game_manager->audio_manager->m_music[i]);
+        UnloadSound(game_manager->audio_manager->m_sound[i]);
+    }
+
+    CloseAudioDevice();
+    CloseWindow();
 }
 
 /***********/
@@ -119,9 +127,24 @@ void player1Actions(GameManager *gm)
     else if (IsKeyDown(KEY_V)) // prevent attack while moving
     {
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[5];
+        playSound(gm->audio_manager, 2);
     }
     else
     {
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[1];
     }
+}
+
+/***********/
+/* Audio */
+/***********/
+void playMusic(AudioManager *am, int index)
+{
+    UpdateMusicStream(am->m_music[index]);
+    PlayMusicStream(am->m_music[index]);
+}
+
+void playSound(AudioManager *am, int index)
+{
+    PlaySound(am->m_sound[index]);
 }

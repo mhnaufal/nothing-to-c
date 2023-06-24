@@ -20,6 +20,10 @@ enum
 {
     MAX_TEXTURE = 20
 };
+enum
+{
+    MAX_AUDIO = 20
+};
 
 typedef struct Entity
 {
@@ -37,7 +41,7 @@ typedef struct Entity
 
 typedef struct EntityManager
 {
-    int total;
+    int m_total;
     Entity m_entities[MAX_ENTITY];
 } EntityManager;
 
@@ -51,9 +55,16 @@ typedef struct EntityManager
 */
 typedef struct TextureManager
 {
-    int total;
+    int m_total;
     Texture2D m_textures[MAX_TEXTURE];
 } TextureManager;
+
+typedef struct AudioManager
+{
+    int m_total;
+    Music m_music[MAX_AUDIO];
+    Sound m_sound[MAX_AUDIO];
+} AudioManager;
 
 /*************/
 /* Functions */
@@ -68,3 +79,7 @@ bool deleteEntity(EntityManager *em, int id);
 Texture2D loadTexture2D(char *filename);
 TextureManager initTextureManager();
 int addTexture(TextureManager *texture_manager, Texture2D texture);
+
+AudioManager initAudioManager();
+int addMusic(AudioManager *audio_manager, Music music);
+int addSound(AudioManager *audio_manager, Sound sound);
