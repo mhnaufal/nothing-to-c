@@ -7,18 +7,60 @@ void initALL(void)
     SetTargetFPS(60);
 }
 
-void closeALL(GameManager *game_manager)
+/**********/
+/* Entity */
+/**********/
+Entity initEntity(char *name, TextureManager texture_manager, int texture_id, Vector2 position, Vector2 size)
 {
-    for (int i = 0; i < game_manager->entity_manager->total; i++)
-    {
-        UnloadTexture(game_manager->entity_manager->m_entities[i].m_texture);
-    }
+    Entity e;
+    e.m_name = name;
+    e.m_texture = texture_manager.m_textures[texture_id];
+    e.m_position = position;
+    e.m_size = size;
+    e.m_velocity = (Vector2){0, 0};
 
-    CloseAudioDevice();
-    CloseWindow();
+    return e;
 }
 
-Texture2D loadTexture2D(char *filename, TextureManager *texture_manager)
+EntityManager initEntityManager(void)
+{
+    EntityManager em;
+    em.total = 0;
+    em.m_entities[em.total] = (Entity){"GENESIS", (Texture2D){0,0,0,0,0}, (Vector2){0,0}, (Vector2){0,0}, (Vector2){0,0}};
+
+    return em;
+}
+
+int addEntity(EntityManager *em, Entity *e)
+{
+    /*
+    Can't handle case when there is an empty block between two filledin block.
+    To much headcache to be handled without vector, map, or linked list
+    */
+    em->total++;
+    if (em->total >= MAX_ENTITY)
+    {
+        TraceLog(LOG_ERROR, "Can't add more entity!\n");
+        em->total--;
+        return 0;
+    }
+    em->m_entities[em->total] = *e;
+
+    return em->total;
+}
+
+bool deleteEntity(EntityManager *em, int id)
+{
+    em->m_entities[id] = (Entity){"", (Texture2D){0,0,0,0,0}, (Vector2){0,0}, (Vector2){0,0}, (Vector2){0,0}};
+    em->total--;
+
+    return true;
+}
+
+/***********/
+/* Texture */
+/***********/
+Texture2D loadTexture2D(char *filename)
 {
     Texture2D t = LoadTexture(filename);
 
@@ -39,13 +81,4 @@ int addTexture(TextureManager *texture_manager, Texture2D texture)
     texture_manager->m_textures[texture_manager->total] = texture;
 
     return texture_manager->total;
-}
-
-void freeALL(GameManager *game_manager)
-{
-    for (int i = 0; i < game_manager->texture_manager->total; i++)
-    {
-        deleteEntity(game_manager->entity_manager, i);
-        UnloadTexture(game_manager->texture_manager->m_textures[i]);
-    }
 }

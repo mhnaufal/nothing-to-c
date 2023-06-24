@@ -1,4 +1,5 @@
-#include <main.h>
+#include <util.h>
+#include <game.h>
 
 int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 {
@@ -10,11 +11,11 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Vector2 player1_position = {100, 300};
     Vector2 player1_size = {180, 300};
 
-    Texture2D player1_idle = loadTexture2D("../assets/img/sprite/ronin/idle.png", &texture_manager);
-    Texture2D player1_run = loadTexture2D("../assets/img/sprite/ronin/run.png", &texture_manager);
-    Texture2D background = loadTexture2D("../assets/img/background/moon.png", &texture_manager);
-    Texture2D player1_jump = loadTexture2D("../assets/img/sprite/ronin/jump.png", &texture_manager);
-    Texture2D player1_attack = loadTexture2D("../assets/img/sprite/ronin/attack.png", &texture_manager);
+    Texture2D player1_idle = loadTexture2D("../assets/img/sprite/ronin/idle.png");
+    Texture2D player1_run = loadTexture2D("../assets/img/sprite/ronin/run.png");
+    Texture2D background = loadTexture2D("../assets/img/background/moon.png");
+    Texture2D player1_jump = loadTexture2D("../assets/img/sprite/ronin/jump.png");
+    Texture2D player1_attack = loadTexture2D("../assets/img/sprite/ronin/attack.png");
     addTexture(&texture_manager, player1_idle);
     addTexture(&texture_manager, player1_run);
     addTexture(&texture_manager, background);
