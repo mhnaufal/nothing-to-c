@@ -37,6 +37,7 @@ typedef struct Entity
 /* EntityManager Table List
 [0] : Genesis
 [1] : Player 1
+[2] : Player 2
 */
 
 typedef struct EntityManager
@@ -52,6 +53,10 @@ typedef struct EntityManager
 [3] : Background
 [4] : Player 1 Jump
 [5] : Player 1 Attack
+[6] : Player 2 Idle
+[7] : Player 2 Run
+[8] : Player 2 Jump
+[9] : Player 2 Attack
 */
 typedef struct TextureManager
 {

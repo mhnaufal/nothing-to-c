@@ -40,6 +40,7 @@ void renderAll(GameManager *game_manager);
 void closeALL(GameManager *game_manager);
 
 void player1Actions(GameManager *gm);
+void player2Actions(GameManager *gm);
 
 void playMusic(AudioManager *am, int index);
 void playSound(AudioManager *am, int index);

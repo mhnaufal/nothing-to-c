@@ -25,6 +25,7 @@ void gameLoop(GameManager *game_manager)
     while (!WindowShouldClose())
     {
         player1Actions(game_manager);
+        player2Actions(game_manager);
 
         BeginDrawing();
             updateALL(game_manager);
@@ -33,6 +34,7 @@ void gameLoop(GameManager *game_manager)
     }
 }
 
+// TODO: refactor movement to seperate function
 void updateALL(GameManager *game_manager)
 {
     playMusic(game_manager->audio_manager, 1);
@@ -150,7 +152,7 @@ void player1Actions(GameManager *gm)
         gm->entity_manager->m_entities[1].m_position.x -= 5.0f;
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[2];
     }
-    else if (IsKeyDown(KEY_V)) // prevent attack while moving
+    else if (IsKeyDown(KEY_THREE)) // prevent attack while moving
     {
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[5];
         playSound(gm->audio_manager, 2);
@@ -158,6 +160,34 @@ void player1Actions(GameManager *gm)
     else
     {
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[1];
+    }
+}
+
+void player2Actions(GameManager *gm)
+{
+    if (IsKeyPressed(KEY_I))
+    {
+        gm->entity_manager->m_entities[2].m_velocity.y = -35.0f;
+        gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[8];
+    }
+    else if (IsKeyDown(KEY_L))
+    {
+        gm->entity_manager->m_entities[2].m_position.x += 5.0f;
+        gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[7];
+    }
+    else if (IsKeyDown(KEY_J))
+    {
+        gm->entity_manager->m_entities[2].m_position.x -= 5.0f;
+        gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[7];
+    }
+    else if (IsKeyDown(KEY_NINE)) // prevent attack while moving
+    {
+        gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[9];
+        playSound(gm->audio_manager, 2);
+    }
+    else
+    {
+        gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[6];
     }
 }
 

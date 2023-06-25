@@ -24,10 +24,16 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Entity player1 = initEntity("Player 1", texture_manager, 1, player1_position, player1_size);
     addEntity(&entity_manager, &player1); // 1
 
-    Vector2 player2_position = {800, 300};
+    Vector2 player2_position = {1100, 300};
     Vector2 player2_size = {180, 300};
     Texture2D player2_idle = loadTexture2D("../assets/img/sprite/nomad/idle.png"); // 6
+    Texture2D player2_run = loadTexture2D("../assets/img/sprite/nomad/run.png");
+    Texture2D player2_jump = loadTexture2D("../assets/img/sprite/nomad/jump.png");
+    Texture2D player2_attack = loadTexture2D("../assets/img/sprite/nomad/attack.png");
     addTexture(&texture_manager, player2_idle);
+    addTexture(&texture_manager, player2_run);
+    addTexture(&texture_manager, player2_jump);
+    addTexture(&texture_manager, player2_attack);
     Entity player2 = initEntity("Player 2", texture_manager, 6, player2_position, player2_size);
     addEntity(&entity_manager, &player2); // 2
 
