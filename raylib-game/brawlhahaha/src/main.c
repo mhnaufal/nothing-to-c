@@ -40,9 +40,11 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Music music_bg = LoadMusicStream("../assets/audio/battle.mp3");
     Sound sound_slash = LoadSound("../assets/audio/slash.mp3");
     Sound sound_start = LoadSound("../assets/audio/ready-fight.mp3");
+    Sound sound_slash2 = LoadSound("../assets/audio/slash2.mp3");
     addMusic(&audio_manager, music_bg);
     addSound(&audio_manager, sound_slash);
     addSound(&audio_manager, sound_start);
+    addSound(&audio_manager, sound_slash2);
 
     GameManager game_manager = initGameManager(entity_manager, texture_manager, audio_manager); // only called once, after all other managers ready
 

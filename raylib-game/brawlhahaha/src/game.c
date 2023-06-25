@@ -94,7 +94,7 @@ void renderAll(GameManager *game_manager)
 
     DrawTexturePro(
         player1.m_texture,
-        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 150) % 10), 0, SPRITE_WIDHT, SPRITE_HEIGHT},
+        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 70) % 10), 0, SPRITE_WIDHT, SPRITE_HEIGHT},
         (Rectangle){player1.m_position.x, player1.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
         (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
         0,
@@ -102,7 +102,7 @@ void renderAll(GameManager *game_manager)
 
     DrawTexturePro(
         player2.m_texture,
-        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 150) % 10), 0, -SPRITE_WIDHT, SPRITE_HEIGHT},
+        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 70) % 10), 0, -SPRITE_WIDHT, SPRITE_HEIGHT},
         (Rectangle){player2.m_position.x, player2.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
         (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
         0,
@@ -183,7 +183,7 @@ void player2Actions(GameManager *gm)
     else if (IsKeyDown(KEY_NINE)) // prevent attack while moving
     {
         gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[9];
-        playSound(gm->audio_manager, 2);
+        playSound(gm->audio_manager, 4);
     }
     else
     {
