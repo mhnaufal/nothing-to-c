@@ -37,6 +37,10 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     Entity player2 = initEntity("Player 2", texture_manager, 6, player2_position, player2_size);
     addEntity(&entity_manager, &player2); // 2
 
+    Vector2 attack1_size = (Vector2){ATTACK_BOX_WIDTH, ATTACK_BOX_HEIGHT};
+    Entity player1_attack_box = initEntity("Player 1 Attack", texture_manager, 5, player1_position, attack1_size);
+    addEntity(&entity_manager, &player1_attack_box); // 3
+
     Music music_bg = LoadMusicStream("../assets/audio/battle.mp3");
     Sound sound_slash = LoadSound("../assets/audio/slash.mp3");
     Sound sound_start = LoadSound("../assets/audio/ready-fight.mp3");

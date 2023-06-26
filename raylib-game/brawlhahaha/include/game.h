@@ -21,6 +21,12 @@ static const float GRAVITY = 2.5;
 static const int SPRITE_WIDHT = 64;
 static const int SPRITE_HEIGHT = 64;
 
+static bool is_player1_attack = false;
+static bool is_player2_attack = false;
+
+static const int ATTACK_BOX_HEIGHT = 50;
+static const int ATTACK_BOX_WIDTH = 300;
+
 typedef struct GameManager
 {
     EntityManager *entity_manager;
@@ -44,3 +50,5 @@ void player2Actions(GameManager *gm);
 
 void playMusic(AudioManager *am, int index);
 void playSound(AudioManager *am, int index);
+
+void player1AttackCollision(GameManager *gm);

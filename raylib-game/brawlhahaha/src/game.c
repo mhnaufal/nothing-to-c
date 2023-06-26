@@ -24,12 +24,21 @@ void gameLoop(GameManager *game_manager)
 
     while (!WindowShouldClose())
     {
+        game_manager->entity_manager->m_entities[3].m_position = game_manager->entity_manager->m_entities[1].m_position;
+
         player1Actions(game_manager);
         player2Actions(game_manager);
 
         BeginDrawing();
             updateALL(game_manager);
             renderAll(game_manager);
+
+                player1AttackCollision(game_manager);
+                is_player1_attack = false;
+                is_player2_attack = false;
+
+            DrawText("Brawlhahaha", SCREEN_WIDTH / 2 - 100, 10, 40, WHITE);
+            DrawFPS(SCREEN_WIDTH - 100, 10);
         EndDrawing();
     }
 }
@@ -184,6 +193,7 @@ void player2Actions(GameManager *gm)
     {
         gm->entity_manager->m_entities[2].m_texture = gm->texture_manager->m_textures[9];
         playSound(gm->audio_manager, 4);
+        is_player2_attack = true;
     }
     else
     {
@@ -203,4 +213,18 @@ void playMusic(AudioManager *am, int index)
 void playSound(AudioManager *am, int index)
 {
     PlaySound(am->m_sound[index]);
+}
+
+/*************/
+/* Collision */
+/*************/
+void player1AttackCollision(GameManager *gm)
+{
+    Entity attack = gm->entity_manager->m_entities[3];
+    Entity player2 = gm->entity_manager->m_entities[2];
+
+    if (attack.m_position.x + attack.m_size.x >= player2.m_position.x)
+    {
+        printf("PLAYER 1 ATTACK\n");
+    }
 }
