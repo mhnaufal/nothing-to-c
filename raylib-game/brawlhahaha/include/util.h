@@ -38,6 +38,8 @@ typedef struct Entity
 [0] : Genesis
 [1] : Player 1
 [2] : Player 2
+[3] : Player 1 Attack
+[4] : Player 2 Attack
 */
 
 typedef struct EntityManager

@@ -24,7 +24,6 @@ void gameLoop(GameManager *game_manager)
 
     while (!WindowShouldClose())
     {
-        game_manager->entity_manager->m_entities[3].m_position = game_manager->entity_manager->m_entities[1].m_position;
 
         player1Actions(game_manager);
         player2Actions(game_manager);
@@ -34,8 +33,7 @@ void gameLoop(GameManager *game_manager)
             renderAll(game_manager);
 
                 player1AttackCollision(game_manager);
-                is_player1_attack = false;
-                is_player2_attack = false;
+                player2AttackCollision(game_manager);
 
             DrawText("Brawlhahaha", SCREEN_WIDTH / 2 - 100, 10, 40, WHITE);
             DrawFPS(SCREEN_WIDTH - 100, 10);
@@ -146,6 +144,9 @@ void closeALL(GameManager *game_manager)
 /***********/
 void player1Actions(GameManager *gm)
 {
+    // update attack box position
+    gm->entity_manager->m_entities[3].m_position = gm->entity_manager->m_entities[1].m_position;
+
     if (IsKeyPressed(KEY_W))
     {
         gm->entity_manager->m_entities[1].m_velocity.y = -35.0f;
@@ -165,6 +166,7 @@ void player1Actions(GameManager *gm)
     {
         gm->entity_manager->m_entities[1].m_texture = gm->texture_manager->m_textures[5];
         playSound(gm->audio_manager, 2);
+        is_player1_attack = true;
     }
     else
     {
@@ -174,6 +176,9 @@ void player1Actions(GameManager *gm)
 
 void player2Actions(GameManager *gm)
 {
+    // update attack box position
+    gm->entity_manager->m_entities[4].m_position = gm->entity_manager->m_entities[2].m_position;
+
     if (IsKeyPressed(KEY_I))
     {
         gm->entity_manager->m_entities[2].m_velocity.y = -35.0f;
@@ -223,8 +228,33 @@ void player1AttackCollision(GameManager *gm)
     Entity attack = gm->entity_manager->m_entities[3];
     Entity player2 = gm->entity_manager->m_entities[2];
 
-    if (attack.m_position.x + attack.m_size.x >= player2.m_position.x)
+    if (attack.m_position.x + attack.m_size.x >= player2.m_position.x
+    && attack.m_position.x <= player2.m_position.x + player2.m_size.x
+    && attack.m_position.y + attack.m_size.y >= player2.m_position.y
+    && attack.m_position.y <= player2.m_position.y + player2.m_size.y
+    && is_player1_attack)
     {
+        // TODO: reduce health here
         printf("PLAYER 1 ATTACK\n");
     }
+
+    is_player1_attack = false;
+}
+
+void player2AttackCollision(GameManager *gm)
+{
+    Entity attack = gm->entity_manager->m_entities[4];
+    Entity player1 = gm->entity_manager->m_entities[1];
+
+    if (attack.m_position.x + attack.m_size.x >= player1.m_position.x
+    && attack.m_position.x <= player1.m_position.x + player1.m_size.x
+    && attack.m_position.y + attack.m_size.y >= player1.m_position.y
+    && attack.m_position.y <= player1.m_position.y + player1.m_size.y
+    && is_player2_attack)
+    {
+        // TODO: reduce health here
+        printf("PLAYER 2 ATTACK\n");
+    }
+
+    is_player2_attack = false;
 }

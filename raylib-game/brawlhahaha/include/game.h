@@ -25,7 +25,7 @@ static bool is_player1_attack = false;
 static bool is_player2_attack = false;
 
 static const int ATTACK_BOX_HEIGHT = 50;
-static const int ATTACK_BOX_WIDTH = 300;
+static const int ATTACK_BOX_WIDTH = 150;
 
 typedef struct GameManager
 {
@@ -52,3 +52,4 @@ void playMusic(AudioManager *am, int index);
 void playSound(AudioManager *am, int index);
 
 void player1AttackCollision(GameManager *gm);
+void player2AttackCollision(GameManager *gm);
