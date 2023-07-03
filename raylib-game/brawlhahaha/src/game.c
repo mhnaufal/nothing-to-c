@@ -3,12 +3,13 @@
 /***********/
 /* Game */
 /***********/
-GameManager initGameManager(EntityManager em, TextureManager tm, AudioManager am)
+GameManager initGameManager(EntityManager em, TextureManager tm, AudioManager am, UIManager um)
 {
     GameManager gm;
     gm.entity_manager = &em;
     gm.texture_manager = &tm;
     gm.audio_manager = &am;
+    gm.ui_manager = &um;
     return gm;
 }
 
@@ -24,7 +25,6 @@ void gameLoop(GameManager *game_manager)
 
     while (!WindowShouldClose())
     {
-
         player1Actions(game_manager);
         player2Actions(game_manager);
 
@@ -34,6 +34,10 @@ void gameLoop(GameManager *game_manager)
 
                 player1AttackCollision(game_manager);
                 player2AttackCollision(game_manager);
+
+                DrawRectangleRec(game_manager->ui_manager->m_rect[1], YELLOW);
+                DrawRectangleRec(game_manager->ui_manager->m_rect[2], RED);
+                DrawRectangleRec(game_manager->ui_manager->m_rect[3], BLUE);
 
             DrawText("Brawlhahaha", SCREEN_WIDTH / 2 - 100, 10, 40, WHITE);
             DrawFPS(SCREEN_WIDTH - 100, 10);
@@ -101,17 +105,17 @@ void renderAll(GameManager *game_manager)
 
     DrawTexturePro(
         player1.m_texture,
-        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 70) % 10), 0, SPRITE_WIDHT, SPRITE_HEIGHT},
-        (Rectangle){player1.m_position.x, player1.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
-        (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
+        (Rectangle){SPRITE_WIDTH * (int)((int)(clock() / 70) % 10), 0, SPRITE_WIDTH, SPRITE_HEIGHT},
+        (Rectangle){player1.m_position.x, player1.m_position.y, SPRITE_WIDTH * 4, SPRITE_HEIGHT * 4},
+        (Vector2){SPRITE_WIDTH / 2, SPRITE_HEIGHT / 2},
         0,
         WHITE);
 
     DrawTexturePro(
         player2.m_texture,
-        (Rectangle){SPRITE_WIDHT * (int)((int)(clock() / 70) % 10), 0, -SPRITE_WIDHT, SPRITE_HEIGHT},
-        (Rectangle){player2.m_position.x, player2.m_position.y, SPRITE_WIDHT * 4, SPRITE_HEIGHT * 4},
-        (Vector2){SPRITE_WIDHT / 2, SPRITE_HEIGHT / 2},
+        (Rectangle){SPRITE_WIDTH * (int)((int)(clock() / 70) % 10), 0, -SPRITE_WIDTH, SPRITE_HEIGHT},
+        (Rectangle){player2.m_position.x, player2.m_position.y, SPRITE_WIDTH * 4, SPRITE_HEIGHT * 4},
+        (Vector2){SPRITE_WIDTH / 2, SPRITE_HEIGHT / 2},
         0,
         WHITE);
 }

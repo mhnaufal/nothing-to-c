@@ -8,6 +8,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     EntityManager entity_manager = initEntityManager();
     TextureManager texture_manager = initTextureManager();
     AudioManager audio_manager = initAudioManager();
+    UIManager ui_manager = initUIManager();
 
     // Player 1
     Vector2 player1_position = {100, 300};
@@ -59,7 +60,15 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
     addSound(&audio_manager, sound_start);
     addSound(&audio_manager, sound_slash2);
 
-    GameManager game_manager = initGameManager(entity_manager, texture_manager, audio_manager); // only called once, after all other managers ready
+    // UI
+    Rectangle base_health = {0, 0, SCREEN_WIDTH, 50};
+    Rectangle player1_health = {0, 0, SCREEN_WIDTH / 2, 50};
+    Rectangle player2_health = {SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, 50};
+    addUI(&ui_manager, base_health);
+    addUI(&ui_manager, player1_health);
+    addUI(&ui_manager, player2_health);
+
+    GameManager game_manager = initGameManager(entity_manager, texture_manager, audio_manager, ui_manager); // only called once, after all other managers ready
 
     gameLoop(&game_manager);
 

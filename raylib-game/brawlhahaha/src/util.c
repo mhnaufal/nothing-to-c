@@ -109,3 +109,23 @@ int addSound(AudioManager *audio_manager, Sound sound)
 
     return audio_manager->m_total;
 }
+
+
+/***********/
+/* UI */
+/***********/
+UIManager initUIManager()
+{
+    UIManager um;
+    um.m_total = 0;
+
+    return um;
+}
+
+int addUI(UIManager *ui_manager, Rectangle rect)
+{
+    ui_manager->m_total++;
+    ui_manager->m_rect[ui_manager->m_total] = rect;
+
+    return ui_manager->m_total;
+}

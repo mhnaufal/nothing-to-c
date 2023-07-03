@@ -24,6 +24,10 @@ enum
 {
     MAX_AUDIO = 20
 };
+enum
+{
+    MAX_UI = 20
+};
 
 typedef struct Entity
 {
@@ -73,6 +77,12 @@ typedef struct AudioManager
     Sound m_sound[MAX_AUDIO];
 } AudioManager;
 
+typedef struct UIManager
+{
+    int m_total;
+    Rectangle m_rect[MAX_UI];
+} UIManager;
+
 /*************/
 /* Functions */
 /*************/
@@ -90,3 +100,6 @@ int addTexture(TextureManager *texture_manager, Texture2D texture);
 AudioManager initAudioManager();
 int addMusic(AudioManager *audio_manager, Music music);
 int addSound(AudioManager *audio_manager, Sound sound);
+
+UIManager initUIManager();
+int addUI(UIManager *ui_manager, Rectangle rect);

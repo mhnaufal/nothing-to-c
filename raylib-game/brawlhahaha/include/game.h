@@ -18,7 +18,7 @@ static const int SCREEN_WIDTH = 1440;
 static const int SCREEN_HEIGHT = 768;
 static const float GRAVITY = 2.5;
 
-static const int SPRITE_WIDHT = 64;
+static const int SPRITE_WIDTH = 64;
 static const int SPRITE_HEIGHT = 64;
 
 static bool is_player1_attack = false;
@@ -32,12 +32,13 @@ typedef struct GameManager
     EntityManager *entity_manager;
     TextureManager *texture_manager;
     AudioManager *audio_manager;
+    UIManager *ui_manager;
 } GameManager;
 
 /*************/
 /* Functions */
 /*************/
-GameManager initGameManager(EntityManager em, TextureManager tm, AudioManager am);
+GameManager initGameManager(EntityManager em, TextureManager tm, AudioManager am, UIManager um);
 void connectEntityManagerToGameManager(GameManager *game_manager, EntityManager *entity_manager, TextureManager *texture_manager);
 
 void gameLoop(GameManager *game_manager);
