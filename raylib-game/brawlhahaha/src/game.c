@@ -35,7 +35,7 @@ void gameLoop(GameManager *game_manager)
                 player1AttackCollision(game_manager);
                 player2AttackCollision(game_manager);
 
-                DrawRectangleRec(game_manager->ui_manager->m_rect[1], YELLOW);
+                // DrawRectangleRec(game_manager->ui_manager->m_rect[1], YELLOW);
                 DrawRectangleRec(game_manager->ui_manager->m_rect[2], RED);
                 DrawRectangleRec(game_manager->ui_manager->m_rect[3], BLUE);
 
@@ -231,6 +231,7 @@ void player1AttackCollision(GameManager *gm)
 {
     Entity attack = gm->entity_manager->m_entities[3];
     Entity player2 = gm->entity_manager->m_entities[2];
+    Rectangle *player2_health = &gm->ui_manager->m_rect[3]; // take the value instead of just the address
 
     if (attack.m_position.x + attack.m_size.x >= player2.m_position.x
     && attack.m_position.x <= player2.m_position.x + player2.m_size.x
@@ -240,6 +241,12 @@ void player1AttackCollision(GameManager *gm)
     {
         // TODO: reduce health here
         printf("PLAYER 1 ATTACK\n");
+        player2_health->width -= 10;
+
+        if (player2_health->width <= 0)
+        {
+            printf_s("1 WIN!!!");
+        }
     }
 
     is_player1_attack = false;
@@ -249,6 +256,7 @@ void player2AttackCollision(GameManager *gm)
 {
     Entity attack = gm->entity_manager->m_entities[4];
     Entity player1 = gm->entity_manager->m_entities[1];
+    Rectangle *player1_health = &gm->ui_manager->m_rect[2]; // take the value instead of just the address
 
     if (attack.m_position.x + attack.m_size.x >= player1.m_position.x
     && attack.m_position.x <= player1.m_position.x + player1.m_size.x
@@ -258,6 +266,13 @@ void player2AttackCollision(GameManager *gm)
     {
         // TODO: reduce health here
         printf("PLAYER 2 ATTACK\n");
+        player1_health->x += 10;
+        player1_health->width -= 10;
+
+        if (player1_health->x >= SCREEN_WIDTH / 2)
+        {
+            printf_s("2 WIN!!!");
+        }
     }
 
     is_player2_attack = false;
