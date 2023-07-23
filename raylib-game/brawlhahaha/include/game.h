@@ -27,6 +27,13 @@ static bool is_player2_attack = false;
 static const int ATTACK_BOX_HEIGHT = 50;
 static const int ATTACK_BOX_WIDTH = 150;
 
+enum WINNER_ENUM {
+    PLAYER_1 = 1,
+    PLAYER_2 = 2
+};
+
+static int WINNER = 0;
+
 typedef struct GameManager
 {
     EntityManager *entity_manager;
@@ -45,6 +52,7 @@ void gameLoop(GameManager *game_manager);
 void updateALL(GameManager *game_manager);
 void renderAll(GameManager *game_manager);
 void closeALL(GameManager *game_manager);
+void renderWinner();
 
 void player1Actions(GameManager *gm);
 void player2Actions(GameManager *gm);

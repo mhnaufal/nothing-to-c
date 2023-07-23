@@ -35,9 +35,11 @@ void gameLoop(GameManager *game_manager)
                 player1AttackCollision(game_manager);
                 player2AttackCollision(game_manager);
 
-                // DrawRectangleRec(game_manager->ui_manager->m_rect[1], YELLOW);
+                DrawRectangleRec(game_manager->ui_manager->m_rect[1], YELLOW);
                 DrawRectangleRec(game_manager->ui_manager->m_rect[2], RED);
                 DrawRectangleRec(game_manager->ui_manager->m_rect[3], BLUE);
+
+                renderWinner();
 
             DrawText("Brawlhahaha", SCREEN_WIDTH / 2 - 100, 10, 40, WHITE);
             DrawFPS(SCREEN_WIDTH - 100, 10);
@@ -143,6 +145,19 @@ void closeALL(GameManager *game_manager)
     CloseWindow();
 }
 
+void renderWinner()
+{
+    if (WINNER == PLAYER_1)
+    {
+        DrawText("PLAYER 1", SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 80, 60, WHITE);
+        DrawText("WIN", SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 60, WHITE);
+    } else if (WINNER == PLAYER_2)
+    {
+        DrawText("PLAYER 2", SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 80, 60, WHITE);
+        DrawText("WIN", SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 60, WHITE);
+    }
+}
+
 /***********/
 /* Player */
 /***********/
@@ -239,14 +254,10 @@ void player1AttackCollision(GameManager *gm)
     && attack.m_position.y <= player2.m_position.y + player2.m_size.y
     && is_player1_attack)
     {
-        // TODO: reduce health here
         printf("PLAYER 1 ATTACK\n");
         player2_health->width -= 10;
 
-        if (player2_health->width <= 0)
-        {
-            printf_s("1 WIN!!!");
-        }
+        if (player2_health->width <= 0) WINNER = PLAYER_1;
     }
 
     is_player1_attack = false;
@@ -264,15 +275,11 @@ void player2AttackCollision(GameManager *gm)
     && attack.m_position.y <= player1.m_position.y + player1.m_size.y
     && is_player2_attack)
     {
-        // TODO: reduce health here
         printf("PLAYER 2 ATTACK\n");
         player1_health->x += 10;
         player1_health->width -= 10;
 
-        if (player1_health->x >= SCREEN_WIDTH / 2)
-        {
-            printf_s("2 WIN!!!");
-        }
+        if (player1_health->x >= SCREEN_WIDTH / 2) WINNER = PLAYER_2;
     }
 
     is_player2_attack = false;
