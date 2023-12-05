@@ -14,6 +14,8 @@
 /********/
 /* Data */
 /********/
+static bool is_game_start = false;
+
 static const int SCREEN_WIDTH = 1440;
 static const int SCREEN_HEIGHT = 768;
 static const float GRAVITY = 2.5;

@@ -23,7 +23,7 @@ void gameLoop(GameManager *game_manager)
 {
     playSound(game_manager->audio_manager, 3);
 
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && !is_game_start)
     {
         player1Actions(game_manager);
         player2Actions(game_manager);
@@ -145,16 +145,21 @@ void closeALL(GameManager *game_manager)
     CloseWindow();
 }
 
+// TODO: refactor & create end game UI
 void renderWinner()
 {
     if (WINNER == PLAYER_1)
     {
         DrawText("PLAYER 1", SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 80, 60, WHITE);
         DrawText("WIN", SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 60, WHITE);
+        WaitTime(0.25);
+        is_game_start = true;
     } else if (WINNER == PLAYER_2)
     {
         DrawText("PLAYER 2", SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 80, 60, WHITE);
         DrawText("WIN", SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2, 60, WHITE);
+        WaitTime(0.25);
+        is_game_start = true;
     }
 }
 

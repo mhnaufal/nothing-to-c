@@ -70,7 +70,10 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 
     GameManager game_manager = initGameManager(entity_manager, texture_manager, audio_manager, ui_manager); // only called once, after all other managers ready
 
-    gameLoop(&game_manager);
+    if (!is_game_start) {
+        is_game_start = true;
+        gameLoop(&game_manager);
+    }
 
     closeALL(&game_manager);
 

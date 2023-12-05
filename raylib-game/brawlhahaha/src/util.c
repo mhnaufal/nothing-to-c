@@ -34,8 +34,8 @@ EntityManager initEntityManager(void)
 int addEntity(EntityManager *em, Entity *e)
 {
     /*
-    Can't handle case when there is an empty block between two filledin block.
-    To much headcache to be handled without vector, map, or linked list
+    Can't handle case when there is an empty block between two filled in block.
+    Too much headcache to be handled without vector, map, or linked list
     */
     em->m_total++;
     if (em->m_total >= MAX_ENTITY)
